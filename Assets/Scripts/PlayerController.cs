@@ -240,7 +240,6 @@ public class PlayerController : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit, interactDistance, interactLayer))
         {
-            Debug.Log("레이캐스트 감지됨: " + hit.collider.name);
 
             // 자식 collider를 맞아도 부모의 IInteractable까지 찾도록 변경
             var interactable = hit.collider.GetComponent<IInteractable>()
