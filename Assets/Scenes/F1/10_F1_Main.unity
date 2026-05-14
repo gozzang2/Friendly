@@ -20221,7 +20221,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d91be352bf8ad0479ce1cedcf5ef7f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bgmClip: {fileID: 8300000, guid: 06530f8bba546554a8eaa9bf76b3f293, type: 3}
+  defaultBGM: {fileID: 0}
+  triggerBGM: {fileID: 0}
   crossfadeDuration: 5
 --- !u!82 &1233921502
 AudioSource:
@@ -27140,18 +27141,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02ea49de56a86b24fa8f308aab1faa59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mannequins: []
+  mannequins:
+  - {fileID: 0}
   lightFlickerDuration: 1.5
   jumpScareCanvas: {fileID: 1156689703}
   jumpScareImage: {fileID: 1773632354}
-  jumpScare3D_1: {fileID: 0}
-  jumpScare3D_2: {fileID: 0}
   scareAudio: {fileID: 1606355787}
-  footstepSound: {fileID: 0}
-  eerySound: {fileID: 0}
-  laughSound: {fileID: 0}
-  hospitalBeepSound: {fileID: 0}
-  screamSound: {fileID: 0}
+  footstepSound: {fileID: 8300000, guid: 0115623db5edb3d4e849784084e02ada, type: 3}
+  eerySound: {fileID: 8300000, guid: 494a48bb807915f488e6f282defa2bb0, type: 3}
+  laughSound: {fileID: 8300000, guid: b611411bb34bfb747bf757d26c53c289, type: 3}
+  hospitalBeepSound: {fileID: 8300000, guid: 157eb3a6907cde14fb9420020f90dfa0, type: 3}
+  cryingSound: {fileID: 8300000, guid: 1850ce47382ccbb41a30e6e157de6d00, type: 3}
   doors: []
   pictureGlitchManager: {fileID: 0}
   isActing: 0

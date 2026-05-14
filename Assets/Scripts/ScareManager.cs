@@ -28,10 +28,6 @@ public class ScareManager : MonoBehaviour
     public Canvas jumpScareCanvas;
     public GameObject jumpScareImage; 
 
-    [Header("3. 점프스케어 - 3D 오브젝트 (나중에 프리팹 연결)")]
-    public GameObject jumpScare3D_1;
-    public GameObject jumpScare3D_2;
-
     // ──────────────────────────────────────
     // 4. 소리
     // ──────────────────────────────────────
@@ -41,7 +37,7 @@ public class ScareManager : MonoBehaviour
     public AudioClip eerySound;
     public AudioClip laughSound;
     public AudioClip hospitalBeepSound;
-    public AudioClip screamSound;
+    public AudioClip cryingSound;
 
     // ──────────────────────────────────────
     // 5. 문
@@ -71,8 +67,6 @@ public class ScareManager : MonoBehaviour
         else Destroy(gameObject);
 
         if (jumpScareImage != null) jumpScareImage.SetActive(false);
-        if (jumpScare3D_1 != null) jumpScare3D_1.SetActive(false);
-        if (jumpScare3D_2 != null) jumpScare3D_2.SetActive(false);
 
         AssignCameraToCanvas();
     }
@@ -180,29 +174,13 @@ public class ScareManager : MonoBehaviour
         StartCoroutine(LightFlickerRoutine());
     }
 
-    // Action 3: 점프스케어 (UI 이미지 + 3D 오브젝트 통합, 랜덤 선택)
+    // Action 3: 점프스케어 (UI 이미지)
     public void CallJumpScare()
     {
         if (isActing) return;
         if (jumpScareCanvas.worldCamera == null) AssignCameraToCanvas();
-
-        // UI 이미지와 3D 오브젝트 합쳐서 랜덤 선택
-        // UI 이미지 1개 + 3D 2개 중 랜덤 선택
-        // 3D 오브젝트 없으면 UI 이미지만
-        List<int> options = new List<int>();
-        if (jumpScareImage != null) options.Add(0); // UI 이미지
-        if (jumpScare3D_1 != null) options.Add(1); // 3D 오브젝트 1
-        if (jumpScare3D_2 != null) options.Add(2); // 3D 오브젝트 2
-
-        if (options.Count == 0) return;
-
-        int pick = options[Random.Range(0, options.Count)];
-        switch (pick)
-        {
-            case 0: StartCoroutine(JumpScareUIRoutine()); break;
-            case 1: StartCoroutine(JumpScare3DRoutine(jumpScare3D_1)); break;
-            case 2: StartCoroutine(JumpScare3DRoutine(jumpScare3D_2)); break;
-        }
+        if (jumpScareImage == null) return;
+        StartCoroutine(JumpScareUIRoutine());
     }
 
     // Action 4: 소리 재생 (종류 랜덤)
@@ -214,7 +192,7 @@ public class ScareManager : MonoBehaviour
         AudioClip clip = GetRandomSoundClip();
         if (clip == null) return;
 
-        scareAudio.PlayOneShot(clip);
+        StartCoroutine(ScareSoundRoutine(clip));
     }
 
     // Action 5: 문 열림/닫힘
@@ -265,26 +243,22 @@ public class ScareManager : MonoBehaviour
         foreach (var l in nearbyLights) l.enabled = true;
         isActing = false;
     }
-
     IEnumerator JumpScareUIRoutine()
     {
         isActing = true;
         jumpScareImage.SetActive(true);
-        if (scareAudio != null && screamSound != null)
-            scareAudio.PlayOneShot(screamSound);
+        if (scareAudio != null && cryingSound != null)
+            scareAudio.PlayOneShot(cryingSound);
         yield return new WaitForSeconds(0.6f);
         jumpScareImage.SetActive(false);
         isActing = false;
     }
 
-    IEnumerator JumpScare3DRoutine(GameObject obj)
+    IEnumerator ScareSoundRoutine(AudioClip clip)
     {
         isActing = true;
-        obj.SetActive(true);
-        if (scareAudio != null && screamSound != null)
-            scareAudio.PlayOneShot(screamSound);
-        yield return new WaitForSeconds(1.0f);
-        obj.SetActive(false);
+        scareAudio.PlayOneShot(clip);
+        yield return new WaitForSeconds(clip.length);
         isActing = false;
     }
 
@@ -322,7 +296,7 @@ public class ScareManager : MonoBehaviour
         if (eerySound != null) available.Add(eerySound);
         if (laughSound != null) available.Add(laughSound);
         if (hospitalBeepSound != null) available.Add(hospitalBeepSound);
-        if (screamSound != null) available.Add(screamSound);
+        if (cryingSound != null) available.Add(cryingSound);
 
         if (available.Count == 0) return null;
         return available[Random.Range(0, available.Count)];

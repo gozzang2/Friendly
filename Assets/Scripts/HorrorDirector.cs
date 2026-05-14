@@ -10,7 +10,7 @@ public class HorrorDirector : Agent
     // 상수: 연출 추가 시 ACTION_COUNT만 올리고
     //       ExecuteAction에 case 추가하면 끝
     // ────────────────────────────────────────────
-    private const int ACTION_COUNT = 8;  // 0~7
+    private const int ACTION_COUNT = 7;
     private const int IDLE_ACTION = 0;
 
     // ────────────────────────────────────────────
@@ -283,7 +283,6 @@ public class HorrorDirector : Agent
                 case 4: sm.CallScareSound(); break;
                 case 5: sm.CallDoorScare(); break;
                 case 6: sm.CallPictureGlitch(); break;
-                case 7: /* 예비 슬롯 */         break;
                 default:
                     Debug.LogWarning($"[HorrorDirector] 미처리 action: {action}");
                     break;
@@ -302,7 +301,6 @@ public class HorrorDirector : Agent
                 case 4: sm.CallScareSound(); break;
                 case 5: sm.CallDoorScare(); break;
                 case 6: sm.CallPictureGlitch(); break;
-                case 8: /* 예비 슬롯 */         break;
                 default:
                     Debug.LogWarning($"[HorrorDirector] 미처리 action: {action}");
                     break;
@@ -353,7 +351,7 @@ public class HorrorDirector : Agent
     }
 
     // ────────────────────────────────────────────
-    // 테스트용 Heuristic (키보드 1~4로 수동 테스트)
+    // 테스트용 Heuristic (키보드 1~4로 공포 연출 수동 테스트)
     // ────────────────────────────────────────────
     public override void Heuristic(in ActionBuffers actionsOut)
     {
