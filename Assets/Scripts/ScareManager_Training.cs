@@ -14,7 +14,6 @@ public class ScareManager_Training : MonoBehaviour
     private float _soundDuration = 1.0f;
     private float _doorDuration = 1.0f;
     private float _glitchDuration = 0.5f;
-    private float _visionDuration = 1.0f;
 
     void Awake()
     {
@@ -44,10 +43,6 @@ public class ScareManager_Training : MonoBehaviour
     // Action 6: 그림 글리치
     public void CallPictureGlitch()
         => StartCoroutine(ActRoutine(_glitchDuration, 0.5f));
-
-    // Action 7: 시야 글리치
-    public void CallVisionGlitch()
-        => StartCoroutine(ActRoutine(_visionDuration, 0.6f));
 
     IEnumerator ActRoutine(float duration, float responseIntensity)
     {
