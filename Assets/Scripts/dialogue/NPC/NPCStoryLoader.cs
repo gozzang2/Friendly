@@ -20,10 +20,43 @@ public class NPCStoryLoader : MonoBehaviour
     [SerializeField] private string outdoorLocation2Name = "NPC_Location2";
     [SerializeField] private string ossuaryLocation3Name = "NPC_Location3";
     [SerializeField] private string ossuaryLocation4Name = "NPC_Location4";
+    [SerializeField] private string location5Name = "NPC_Location5";
+    [SerializeField] private string location6Name = "NPC_Location6";
 
     [Header("Story Flags")]
     [SerializeField] private string outdoorMoveFlag = "npc_move_outdoor";
     [SerializeField] private string ossuaryMoveFlag = "npc_move_ossuary";
+
+    [Header("12_F1_Main Chase Settings")]
+    [SerializeField] private string chaseSceneName = "12_F1_Main";
+    [SerializeField] private string chaseStartFlag = "npc_chase_started";
+
+
+
+    [SerializeField] private float detectRadius = 18f;
+    [SerializeField] private float walkSpeed = 2f;
+    [SerializeField] private float runSpeed = 5f;
+
+    [SerializeField] private string flashlightItemId = "Flashlight";
+
+    [SerializeField] private AudioClip npcDoorSound;
+    [SerializeField] private AudioSource npcAudioSource;
+
+    [SerializeField] private string doorNearLocation6Name = "DoorStair1";
+
+    private enum ChaseState
+    {
+        Idle,
+        MovingToLocation6,
+        ChasingPlayer,
+        WaitingAtLockedDoor
+    }
+
+    private ChaseState chaseState = ChaseState.Idle;
+
+    private bool chaseModeStarted = false;
+    private bool reachedLocation6 = false;
+    private Transform playerTransform;
 
     private GameObject npcInstance;
     private NavMeshAgent agent;
@@ -108,6 +141,11 @@ public class NPCStoryLoader : MonoBehaviour
                 }
             }
         }
+
+        if (currentScene == chaseSceneName)
+        {
+            UpdateChaseLogic();
+        }
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -167,6 +205,33 @@ public class NPCStoryLoader : MonoBehaviour
                 HideNpcImmediate();
             }
         }
+        else if (scene.name == chaseSceneName)
+        {
+            Transform loc5 = FindMarker(location5Name);
+
+            if (loc5 != null)
+            {
+                CreateNpcIfNeeded();
+                ShowNpc();
+                PlaceNpcAt(loc5);
+
+                if (agent != null)
+                {
+                    agent.isStopped = false;
+                    agent.ResetPath();
+                }
+
+                chaseModeStarted = false;
+                reachedLocation6 = false;
+
+                BindPlayer();
+            }
+            else
+            {
+                Debug.LogWarning("[NPCStoryLoader] NPC_Location5 not found.");
+                HideNpcImmediate();
+            }
+        }
         else
         {
             // Hide NPC in any other scene
@@ -189,6 +254,12 @@ public class NPCStoryLoader : MonoBehaviour
 
         if (animator == null)
             Debug.LogWarning("[NPCstoryloader] No Animator (animations will not play)");
+
+        NPCGameOverHitbox hitbox = npcInstance.GetComponent<NPCGameOverHitbox>();
+        if (hitbox == null)
+            hitbox = npcInstance.AddComponent<NPCGameOverHitbox>();
+
+        hitbox.Init(this);
     }
 
     private Transform FindMarker(string markerName)
@@ -300,5 +371,249 @@ public class NPCStoryLoader : MonoBehaviour
         agent.ResetPath();
         HideNpcImmediate();
         onArrived?.Invoke();
+    }
+
+    // 12_F1_Main에서 플레이어 추격 로직 업데이트
+    private void UpdateChaseLogic()
+    {
+        if (story == null || npcInstance == null || agent == null)
+            return;
+
+        if (!story.IsFlagTrue(chaseStartFlag))
+            return;
+
+        if (!chaseModeStarted)
+        {
+            chaseModeStarted = true;
+            BindPlayer();
+        }
+
+        if (!agent.enabled || !agent.isOnNavMesh)
+            return;
+
+        UpdateNpcSpeed();
+
+        if (playerTransform == null)
+            BindPlayer();
+
+        if (playerTransform == null)
+            return;
+
+        float distanceToPlayer =
+            Vector3.Distance(
+                npcInstance.transform.position,
+                playerTransform.position);
+
+        // 플레이어 발견 → 추격
+        if (distanceToPlayer <= detectRadius)
+        {
+            ChasePlayer();
+            return;
+        }
+
+        // 아직 Location6 안 갔으면 이동
+        if (!reachedLocation6)
+        {
+            MoveToLocation6();
+        }
+        else
+        {
+            // Location6 도착 후 문 상태 확인
+            CheckDoorThenChase();
+        }
+    }
+
+    // 플레이어와의 거리에 따라 속도 조절
+    private void BindPlayer()
+    {
+        PlayerController player = FindFirstObjectByType<PlayerController>();
+
+        if (player != null)
+        {
+            playerTransform = player.transform;
+            return;
+        }
+
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        if (playerObj != null)
+            playerTransform = playerObj.transform;
+    }
+
+    private void UpdateNpcSpeed()
+    {
+        bool hasFlashlight = false;
+
+        if (InventoryManager.Instance != null)
+            hasFlashlight = InventoryManager.Instance.HasItem(flashlightItemId);
+
+        agent.speed = hasFlashlight ? runSpeed : walkSpeed;
+
+        if (animator != null)
+            animator.SetFloat("Speed", agent.velocity.magnitude);
+    }
+
+    private void ChasePlayer()
+    {
+        if (playerTransform == null)
+            return;
+
+        if (agent.isStopped)
+            agent.isStopped = false;
+
+        agent.SetDestination(playerTransform.position);
+    }
+
+    private void MoveToLocation6()
+    {
+        if (reachedLocation6)
+        {
+            CheckDoorThenChase();
+            return;
+        }
+
+        Transform loc6 = FindMarker(location6Name);
+        if (loc6 == null)
+            return;
+
+        NavMeshHit hit;
+        if (!NavMesh.SamplePosition(loc6.position, out hit, 3f, NavMesh.AllAreas))
+            return;
+
+        agent.isStopped = false;
+        agent.SetDestination(hit.position);
+
+        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance + 0.2f)
+        {
+            reachedLocation6 = true;
+            CheckDoorThenChase();
+        }
+    }
+
+    private void CheckDoorThenChase()
+    {
+        GameObject doorObj = GameObject.Find(doorNearLocation6Name);
+
+        if (doorObj == null)
+        {
+            ChasePlayer();
+            return;
+        }
+
+        DoorInteractable door =
+            doorObj.GetComponent<DoorInteractable>();
+
+        // 문 잠김 상태
+        if (door != null && door.IsDoorLocked())
+        {
+            agent.isStopped = true;
+
+            // 문 사운드 1회만 재생
+            if (npcDoorSound != null &&
+                npcAudioSource != null &&
+                !npcAudioSource.isPlaying)
+            {
+                npcAudioSource.PlayOneShot(npcDoorSound);
+            }
+
+            return;
+        }
+
+        // 문 열렸으면 다시 추격
+        agent.isStopped = false;
+
+        ChasePlayer();
+    }
+
+    public void TriggerGameOver()
+    {
+        Debug.Log("[NPCStoryLoader] TriggerGameOver called.");
+
+        //StartCoroutine(GameOverRoutine());
+    }
+
+    private IEnumerator GameOverRoutine()
+    {
+
+        Debug.Log("[NPCStoryLoader] GameOver triggered by NPC.");
+
+
+        if (agent != null)
+            agent.isStopped = true;
+
+        // 1. GameOver UI 표시
+        //GameOverUIController gameOverUI = FindFirstObjectByType<GameOverUIController>(FindObjectsInactive.Include);
+        //if (gameOverUI != null)
+          //  yield return gameOverUI.PlayGameOver();
+
+        // 2. 상태 롤백
+        //RollbackToS07N2();
+
+        // 3. 12_F1_Main의 1F_CCTV 스폰으로 이동
+        SceneLoader.nextSpawnID = "1F_CCTV";
+        SceneManager.LoadScene(chaseSceneName);
+
+        yield break;
+    }
+    /*
+    private void RollbackToS07N2()
+    {
+        if (story != null)
+        {
+            story.ResetRuntimeStateToCheckpoint_S07N2_Temporary();
+            story.StartScene("S07_CCTV_ROOM", "S07_N2");
+        }
+    }
+    */
+
+    private void UpdateMoveToLocation6()
+    {
+        Transform loc6 = FindMarker(location6Name);
+
+        if (loc6 == null)
+            return;
+
+        float playerDist =
+            Vector3.Distance(
+                npcInstance.transform.position,
+                playerTransform.position);
+
+        // 플레이어 발견
+        if (playerDist <= detectRadius)
+        {
+            chaseState = ChaseState.ChasingPlayer;
+            return;
+        }
+
+        agent.SetDestination(loc6.position);
+
+        // 도착
+        if (!agent.pathPending &&
+            agent.remainingDistance <= agent.stoppingDistance + 0.2f)
+        {
+            reachedLocation6 = true;
+
+            agent.ResetPath();
+
+            Debug.Log("[NPCStoryLoader] Reached Location6");
+        }
+    }
+
+    private void UpdateChasePlayer()
+    {
+        if (playerTransform == null)
+            return;
+
+        agent.SetDestination(playerTransform.position);
+
+        // 플레이어 놓치면 다시 Location6 이동
+        float dist =
+            Vector3.Distance(
+                npcInstance.transform.position,
+                playerTransform.position);
+
+        if (dist > detectRadius * 1.5f)
+        {
+            chaseState = ChaseState.MovingToLocation6;
+        }
     }
 }

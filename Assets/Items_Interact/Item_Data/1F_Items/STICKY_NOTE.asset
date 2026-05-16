@@ -15,4 +15,4 @@ MonoBehaviour:
   itemId: STICKY_NOTE
   displayName: sticky note
   description: 10/12/1996... I'm sorry, but it's gonna be good for you, my friend
-  icon: {fileID: 21300000, guid: 7dedd89e742762c46b495d7234e4fc0f, type: 3}
+  icon: {fileID: 21300000, guid: a162da64a8dee574dab06c85822680a0, type: 3}

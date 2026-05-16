@@ -13,12 +13,6 @@ MonoBehaviour:
   m_Name: unlock1
   m_EditorClassIdentifier: 
   itemId: unlock1
-  displayName: Someone's note
-  description: 'Context :
-
-    Mogan, that man, that stupid man.
-
-    Why are you
-    so obsessed with one patient? If the patient can''t handle it, then let him give
-    up.'
-  icon: {fileID: 21300000, guid: 9c4ad6a8e0fe53a439856dccc1018135, type: 3}
+  displayName: Doll
+  description: This doll seems very mad...
+  icon: {fileID: 21300000, guid: cb30a033a9a5cf74c8a023ff05549053, type: 3}

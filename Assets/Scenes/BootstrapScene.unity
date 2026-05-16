@@ -127,25 +127,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5330095504032017540, guid: 895b3540e4ca14c29b89a5feb19df7af, type: 3}
-      propertyPath: defaultPortrait
-      value: 
-      objectReference: {fileID: 21300000, guid: 2569fead8775e3f499c0be4201545261, type: 3}
-    - target: {fileID: 5330095504032017540, guid: 895b3540e4ca14c29b89a5feb19df7af, type: 3}
-      propertyPath: portraits.Array.data[0].sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 2569fead8775e3f499c0be4201545261, type: 3}
-    - target: {fileID: 5330095504032017540, guid: 895b3540e4ca14c29b89a5feb19df7af, type: 3}
-      propertyPath: portraits.Array.data[1].sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 6d6e18892cab2944daaea4f3703f8749, type: 3}
+    - target: {fileID: 4474668236697533678, guid: 895b3540e4ca14c29b89a5feb19df7af, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4474668236697533678, guid: 895b3540e4ca14c29b89a5feb19df7af, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6616638714970093186, guid: 895b3540e4ca14c29b89a5feb19df7af, type: 3}
       propertyPath: m_Name
       value: '[PersistentRoot]'
       objectReference: {fileID: 0}
-    - target: {fileID: 6763504097536602957, guid: 895b3540e4ca14c29b89a5feb19df7af, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 150
+    - target: {fileID: 8363026113518124096, guid: 895b3540e4ca14c29b89a5feb19df7af, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8363026113518124096, guid: 895b3540e4ca14c29b89a5feb19df7af, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8363026113518124096, guid: 895b3540e4ca14c29b89a5feb19df7af, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8826099302664070563, guid: 895b3540e4ca14c29b89a5feb19df7af, type: 3}
       propertyPath: m_LocalPosition.x

@@ -94,6 +94,11 @@ public class DoorInteractable : MonoBehaviour, IInteractable
         return !unlockingItem.IsUnlocked(requiredUnlockId);
     }
 
+    public bool IsDoorLocked()
+    {
+        return IsLocked();
+    }
+
     #region door opening&closing logic
     // 플레이어 반대 방향으로 문 여는 함수 (방향 계산)
     private void OpenDoorAwayFromPlayer()
