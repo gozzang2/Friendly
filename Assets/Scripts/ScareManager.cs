@@ -49,7 +49,7 @@ public class ScareManager : MonoBehaviour
     // 6. 그림 글리치
     // ──────────────────────────────────────
     [Header("6. 그림 글리치")]
-    public PictureGlitchManager pictureGlitchManager;
+    public List<PictureGlitchManager> pictureGlitchManagers;
 
     // ──────────────────────────────────────
     // 상태
@@ -143,8 +143,10 @@ public class ScareManager : MonoBehaviour
     // 그림 글리치 가능한지 (플레이어가 방 안)
     public bool CanTriggerGlitch()
     {
-        return pictureGlitchManager != null
-            && pictureGlitchManager.isPlayerInRoom;
+        foreach (var manager in pictureGlitchManagers)
+            if (manager != null && manager.isPlayerInRoom)
+                return true;
+        return false;
     }
 
     // ──────────────────────────────────────
@@ -207,8 +209,15 @@ public class ScareManager : MonoBehaviour
     public void CallPictureGlitch()
     {
         if (isActing) return;
-        if (!CanTriggerGlitch()) return;
-        pictureGlitchManager.TriggerGlitch();
+        // 플레이어가 있는 방의 글리치 매니저만 실행
+        foreach (var manager in pictureGlitchManagers)
+        {
+            if (manager != null && manager.isPlayerInRoom)
+            {
+                manager.TriggerGlitch();
+                return; // 하나만 실행
+            }
+        }
     }
 
     // ──────────────────────────────────────
