@@ -23469,7 +23469,7 @@ MonoBehaviour:
   hospitalBeepSound: {fileID: 0}
   cryingSound: {fileID: 0}
   doors: []
-  pictureGlitchManager: {fileID: 0}
+  pictureGlitchManagers: {fileID: 0}
   isActing: 0
   nearbyCheckRadius: 8
 --- !u!1001 &1615957474
