@@ -38,7 +38,8 @@
             "truth_hippocratic": false,
             "ending_ready": false,
             "npc_move_outdoor": false,
-            "npc_move_ossuary": false
+            "npc_move_ossuary": false,
+            "npc_chase_started": false
         },
         "vars":{
             "suspicion" : 0,
@@ -324,7 +325,8 @@
                 {
                     "id": "S02_N1",
                     "type": "pickup",
-                    "itemId": "BUSINESS_CARD"
+                    "itemId": "BUSINESS_CARD",
+                    "worldObjectId": "business_card_01"
                 },
                 {
                     "id": "S02_N2",
@@ -341,7 +343,8 @@
                 {
                     "id": "S03_N0",
                     "type": "pickup",
-                    "itemId": "MAGAZINE"
+                    "itemId": "MAGAZINE",
+                    "worldObjectId": "magazine_01"
                 },
                 {
                     "id": "S03_N1",
@@ -358,7 +361,8 @@
                 {
                     "id": "S04_N0",
                     "type": "pickup",
-                    "itemId": "PROTEST_PHOTO"
+                    "itemId": "PROTEST_PHOTO",
+                    "worldObjectId": "protest_photo_01"
                 },
                 {
                     "id": "S04_N1",
@@ -380,17 +384,20 @@
                 {
                     "id": "S05_N1",
                     "type": "pickup",
-                    "itemId": "SCHEDULE_SHEET"
+                    "itemId": "SCHEDULE_SHEET",
+                    "worldObjectId": "schecule_sheet_01"
                 },
                 {
                     "id": "S05_N2",
                     "type": "pickup",
-                    "itemId": "STICKY_NOTE"
+                    "itemId": "STICKY_NOTE",
+                    "worldObjectId": "sticky_note_01"
                 },
                 {
                     "id": "S05_N3",
                     "type": "pickup",
-                    "itemId": "NPCDAD_CHART"
+                    "itemId": "NPCDAD_CHART",
+                    "worldObjectId": "npcdad_chart_01"
                 },
                 {
                     "id": "S05_N4",
@@ -492,6 +499,7 @@
                     "id": "S07_N0_1",
                     "type": "pickup",
                     "itemId": "DVD_RICH_SURGERY",
+                    "worldObjectId": "dvd_rich_surgery_01",
                     "next":"S07_N0_2"
                 },
                 {
@@ -541,20 +549,11 @@
                 },
                 {
                     "id": "S07_N4",
-                    "type": "choice",
-                    "prompt": "Choose a response.",
-                    "choices": [
-                        {
-                            "text": "...Yeah. That's my dad.",
-                            "effects": [{ "type": "addVar", "var": "trust_npc", "value": 1 }],
-                            "next": "S07_N5"
-                        },
-                        {
-                            "text": "...Why are you asking that?",
-                            "effects": [{ "type": "addVar", "var": "trust_npc", "value": 1 }],
-                            "next": "S07_N5"
-                        }
-                    ]
+                    "type": "dialogue",
+                    "speaker":"{PC_NAME}",
+                    "text":"...Why are you asking that?",
+                    "effects": [{ "type": "addVar", "var": "trust_npc", "value": 1 }],
+                    "next": "S07_N5"
                 },
                 {
                     "id": "S07_N5",
@@ -632,6 +631,7 @@
                     "id": "S07_N15",
                     "type": "action",
                     "do": [
+                        { "type": "rollbackSave" },
                         { "type": "setFlag", "flag": "alarm_started", "value": true },
                         { "type": "sound", "name": "alarm_siren" },
                         { "type": "vignette", "mode": "red", "strength": 0.8 },
@@ -671,7 +671,46 @@
                 {
                     "id": "S08_N2",
                     "type": "uiObjective",
-                    "text": "Go up to the annex's second floor and gather clues."
+                    "text": "Go up to the annex's second floor and gather clues.",
+
+                    "effects":
+                    [
+                        {
+                            "type": "setFlag",
+                            "flag": "npc_chase_started",
+                            "value": true
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "S08_CHASE_ROUTE",
+            "name": "Part 2 - Chase / Escape",
+
+            "retryScene": "S08_CHASE_ROUTE",
+            "retryNode": "S08_N0",
+
+            "nodes": [
+            ]
+        },
+
+        {
+            "id": "S08_FAIL",
+            "name": "Caught by NPC",
+            "nodes": [
+                {
+                "id": "S08_FAIL_N0",
+                "type": "narration",
+                "text": "A hand grabs your shoulder."
+                },
+                {
+                "id": "S08_FAIL_N1",
+                "type": "action",
+                "do": [
+                    { "type": "rollbackRestore" }
+                ],
+                "nextScene": "S08_CHASE_ROUTE"
                 }
             ]
         },
@@ -683,27 +722,32 @@
                 {
                     "id": "S09_N0",
                     "type": "pickup",
-                    "itemId": "ARREARS_NOTICE"
+                    "itemId": "ARREARS_NOTICE",
+                    "worldObjectId": "arrears_notice_01"
                 },
                 {
                     "id": "S09_N1",
                     "type": "pickup",
-                    "itemId": "CONSENT_NOTE"
+                    "itemId": "CONSENT_NOTE",
+                    "worldObjectId": "consent_note_01"
                 },
                 {
                     "id": "S09_N2",
                     "type": "pickup",
-                    "itemId": "PHOTO_BABY"
+                    "itemId": "PHOTO_BABY",
+                    "worldObjectId": "photo_baby_01"
                 },
                 {
                     "id": "S09_N3",
                     "type": "pickup",
-                    "itemId": "CONTRACT"
+                    "itemId": "CONTRACT",
+                    "worldObjectId": "contract_01"
                 },
                 {
                     "id": "S09_N4",
                     "type": "pickup",
-                    "itemId": "HIPPOCRATIC"
+                    "itemId": "HIPPOCRATIC",
+                    "worldObjectId": "hippocratic_01"
                 },
                 {
                     "id": "S09_N5",
@@ -772,7 +816,8 @@
                 {
                     "id": "S10_N3",
                     "type": "pickup",
-                    "itemId": "SAFE_MONEY_MEMO"
+                    "itemId": "SAFE_MONEY_MEMO",
+                    "worldObjectId": "safe_money_memo_01"
                 },
                 {
                     "id": "S10_N4",
@@ -796,20 +841,11 @@
                 },
                 {
                     "id": "S11_N1",
-                    "type": "choice",
-                    "prompt": "What do you say?",
-                    "choices": [
-                        {
-                        "text": "Show the evidence. 'It was a misunderstanding. This is the contract.'",
-                        "effects": [{ "type": "addVar", "var": "trust_npc", "value": 2 }],
-                        "next": "S11_GOOD_0"
-                        },
-                        {
-                        "text": "Snap back emotionally. 'What do you even know?!'",
-                        "effects": [{ "type": "addVar", "var": "trust_npc", "value": -2 }],
-                        "next": "S11_BAD_0"
-                        }
-                    ]
+                    "type": "dialogue",
+                    "speaker":"{PC_NAME}",
+                    "text": "Show the evidence. 'It was a misunderstanding. This is the contract.'",
+                    "effects": [{ "type": "addVar", "var": "trust_npc", "value": 2 }],
+                    "next": "S11_GOOD_0"
                 },
 
                 {

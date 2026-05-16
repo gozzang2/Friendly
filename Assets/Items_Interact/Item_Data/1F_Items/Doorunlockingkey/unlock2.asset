@@ -13,6 +13,12 @@ MonoBehaviour:
   m_Name: unlock2
   m_EditorClassIdentifier: 
   itemId: unlock2
-  displayName: Teddy
-  description: This is teddy bear!
+  displayName: Someone's note
+  description: 'Context :
+
+    Mogan, that man, that stupid man.
+
+    Why are you
+    so obsessed with one patient? If the patient can''t handle it, then let him give
+    up.'
   icon: {fileID: 21300000, guid: 9c4ad6a8e0fe53a439856dccc1018135, type: 3}

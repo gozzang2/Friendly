@@ -16,4 +16,4 @@ MonoBehaviour:
   displayName: Diagnostic Record of Patient {NPC_DAD_NAME}
   description: 'Diagonstic record. At the bottom, it is faintly written : ''Security
     PW needed. Two-digit personal access code + 985 (as the last three digits)''.'
-  icon: {fileID: 21300000, guid: 31bcc57a232754dccbe8f565a37ccde5, type: 3}
+  icon: {fileID: 21300000, guid: 649bdaafb633ca042b9614bfe92750ef, type: 3}

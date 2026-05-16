@@ -15,4 +15,4 @@ MonoBehaviour:
   itemId: PROTEST_PHOTO
   displayName: protest photo
   description: '''Give me back my dad! Out of the way, doctor Ian Mogan!'''
-  icon: {fileID: 21300000, guid: 7dedd89e742762c46b495d7234e4fc0f, type: 3}
+  icon: {fileID: 21300000, guid: 90c20d55d8b8daa4180a5ebc401ce67f, type: 3}

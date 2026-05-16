@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: unlock4
   m_EditorClassIdentifier: 
   itemId: unlock4
-  displayName: Apple
-  description: Newton
+  displayName: Twin Doll
+  description: Finally we meet together again...
   icon: {fileID: 21300000, guid: 9c4ad6a8e0fe53a439856dccc1018135, type: 3}

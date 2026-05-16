@@ -54,4 +54,19 @@ public class InventoryManager : MonoBehaviour
         Cursor.visible = open;
         Cursor.lockState = open ? CursorLockMode.None : CursorLockMode.Locked;
     }
+
+    public bool HasItem(string itemId)
+    {
+        if (string.IsNullOrEmpty(itemId)) return false;
+
+        foreach (ItemData item in items)
+        {
+            if (item == null) continue;
+
+            if (item.itemId == itemId)
+                return true;
+        }
+
+        return false;
+    }
 }

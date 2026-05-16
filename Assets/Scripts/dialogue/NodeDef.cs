@@ -68,6 +68,8 @@ namespace nodedef{
     {
         public string id;
         public string name;
+        public string retryScene;
+        public string retryNode;
 
         [JsonConverter(typeof(CommandListConverter))]
         public List<Command> onEnter;
@@ -128,6 +130,7 @@ namespace nodedef{
     {
         public override NodeType Type => NodeType.pickup;
         public string itemId;
+        public string worldObjectId;
 
         [JsonConverter(typeof(CommandListConverter))]
         public List<Command> whenPicked;
@@ -205,6 +208,8 @@ namespace nodedef{
     [JsonConverter(typeof(CommandConverter))]
     public sealed class Command
     {
+        public bool savePersistent = true;
+
         public string type;
         public string next;
 

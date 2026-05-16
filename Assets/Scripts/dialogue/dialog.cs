@@ -82,6 +82,11 @@ public class dialog : MonoBehaviour
     private const string KeypadTargetName = "Keypad";
     private const string SafeTargetName = "Locked Safe";
 
+    //Current Progress Save/Load API (for rollback, etc.)
+    public string CurrentSceneId => _currentScene?.id;
+    public string CurrentNodeId => _nextNodeId;
+    private NodeDef _currentExecutingNode;
+
     private void Awake()
     {
         if (jsonFileName != null) LoadFromStreamingAssets(jsonFileName);
@@ -273,6 +278,7 @@ public class dialog : MonoBehaviour
 
             _nextNodeId = null;
 
+            _currentExecutingNode = node;
             yield return RunNode(node);
 
             // 현재 scene의 resume 지점 저장
@@ -519,12 +525,23 @@ public class dialog : MonoBehaviour
             case NodeType.uiObjective:
             {
                 var u = (UiObjectiveNode)node;
-                if (ui != null) ui.ShowObjective(Template(u.text));
-                else Debug.Log($"[Objective] {Template(u.text)}");
 
-                if (TryGotoScene(node)) break;
+                if (ui != null)
+                    ui.ShowObjective(Template(u.text));
+                else
+                    Debug.Log($"[Objective] {Template(u.text)}");
 
-                Goto(string.IsNullOrEmpty(node.next) ? NextIdOrNull(node.id) : node.next);
+                // 추가
+                if (node.effects != null && node.effects.Count > 0)
+                    yield return RunCommands(node.effects);
+
+                if (TryGotoScene(node))
+                    break;
+
+                Goto(string.IsNullOrEmpty(node.next)
+                    ? NextIdOrNull(node.id)
+                    : node.next);
+
                 break;
             }
             case NodeType.ending:
@@ -592,23 +609,26 @@ public class dialog : MonoBehaviour
             yield return null;
     }
 
-    public void PickupItemById_FromWorld(string itemId, bool showInspectLine = false)
+    public void PickupItemById_FromWorld(string itemId, string worldObjectId = null, bool showInspectLine = false)
     {
-        if (string.IsNullOrEmpty(itemId))
+        if (itemId == null || string.IsNullOrEmpty(itemId))
         {
-            Debug.LogWarning("[dialog] PickupItemById_FromWorld: itemId is null/empty");
+            Debug.LogWarning("[dialog] PickupItemById_FromWorld: invalid node");
             return;
         }
-        StartCoroutine(HandleWorldPickupRoutine(itemId, showInspectLine));
+
+        StartCoroutine(
+            HandleWorldPickupRoutine(itemId, worldObjectId, showInspectLine)
+        );
     }
 
-    private IEnumerator HandleWorldPickupRoutine(string itemId, bool showInspectLine)
+    private IEnumerator HandleWorldPickupRoutine(string itemId, string worldObjectId, bool showInspectLine)
     {
-        // 이미 story state에 있으면 중복 처리 방지
+        // 이미 획득했으면 중복 방지
         if (HasItemInStoryState(itemId))
             yield break;
 
-        yield return PickupItemRoutine(itemId, showInspectLine);
+        yield return PickupItemRoutine(itemId, worldObjectId, showInspectLine);
 
         if (_pickupWaiting && _pendingPickupItemIds.Contains(itemId))
         {
@@ -622,7 +642,7 @@ public class dialog : MonoBehaviour
         }
     }
 
-    private IEnumerator PickupItemRoutine(string itemId, bool showInspectLine)
+    private IEnumerator PickupItemRoutine(string itemId, string worldObjectId, bool showInspectLine)
     {
         if (data == null || data.items == null)
         {
@@ -635,7 +655,15 @@ public class dialog : MonoBehaviour
             Debug.LogError($"Item not found: {itemId}");
             yield break;
         }
-    
+
+        if (!string.IsNullOrEmpty(worldObjectId))
+        {
+            WorldStateManager.Instance.SetWorldObjectState(
+                worldObjectId,
+                false
+            );
+        }
+
         // inventory add
         if (data.state.inventory == null) data.state.inventory = new List<string>();
         if (!data.state.inventory.Contains(itemId))
@@ -787,6 +815,7 @@ public class dialog : MonoBehaviour
                 {
                     if (data.state.flags == null) data.state.flags = new Dictionary<string, bool>();
                     data.state.flags[cmd.flag] = cmd.value ?? true;
+                    SetFlag(cmd.flag, cmd.value);
                     break;
                 }
                 case "addVar":
@@ -841,11 +870,46 @@ public class dialog : MonoBehaviour
                         else Debug.Log($"[OBJECTIVE] {Template(cmd.text)}");
                         break;
                     }
+                case "rollbackSave":
+                    {
+                        RollbackManager.Instance.SaveChaseSnapshot(
+                            _currentScene.id,
+                            _currentExecutingNode != null
+                                ? _currentExecutingNode.id
+                                : null
+                        );
+                        break;
+                    }
+
+                case "rollbackRestore":
+                    {
+                        RollbackManager.Instance.RestoreChaseSnapshot();
+                        break;
+                    }
                 default:
                     Debug.LogWarning($"Unknown command type: {cmd.type}");
                     break;
             }
         }
+    }
+
+    private void SetFlag(string flag, bool? value)
+    {
+        if (string.IsNullOrEmpty(flag))
+            return;
+
+        if (data == null)
+            return;
+
+        if (data.state == null)
+            return;
+
+        if (data.state.flags == null)
+            data.state.flags = new Dictionary<string, bool>();
+
+        data.state.flags[flag] = value ?? true;
+
+        Debug.Log($"[dialog] Flag Set: {flag} = {data.state.flags[flag]}");
     }
 
     private bool EvalConditions(List<Condition> conditions)
@@ -1216,4 +1280,23 @@ public class dialog : MonoBehaviour
         }
     }
     #endregion
+
+    public void RestartCurrentStoryScene()
+    {
+        if (_currentScene == null)
+            return;
+
+        string retryScene = _currentScene.retryScene;
+        string retryNode = _currentScene.retryNode;
+
+        if (string.IsNullOrEmpty(retryScene))
+            retryScene = _currentScene.id;
+
+        _waitingStorySceneId = retryScene;
+        _waitingStoryStartNodeId = retryNode;
+
+        SceneManager.LoadScene(
+            SceneManager.GetActiveScene().name
+        );
+    }
 }

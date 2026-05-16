@@ -20,6 +20,8 @@ public class ItemPickup : MonoBehaviour, IInteractable
     [Header("Pickup Object")]
     [SerializeField] private bool destroyObjectOnPickup = true;
 
+    [SerializeField] private string worldObjectId;
+
     private bool _picked;
 
     private void OnValidate()
@@ -51,7 +53,11 @@ public class ItemPickup : MonoBehaviour, IInteractable
 
         if (story != null && !string.IsNullOrEmpty(item.itemId))
         {
-            story.PickupItemById_FromWorld(item.itemId, showInspectLine);
+            story.PickupItemById_FromWorld(
+                                                item.itemId,
+                                                worldObjectId,
+                                                showInspectLine
+                                            );
         }
         else
         {
@@ -70,7 +76,7 @@ public class ItemPickup : MonoBehaviour, IInteractable
         OnPickupSuccess();
 
         if (destroyObjectOnPickup)
-            Destroy(gameObject);
+            gameObject.SetActive(false);
     }
 
     protected virtual void OnPickupSuccess()

@@ -2139,6 +2139,7 @@ MonoBehaviour:
   pickupSound: {fileID: 8300000, guid: 64e674b5f9ad55e43bb5e2ec1adeb0ba, type: 3}
   pickupSoundVolume: 1
   destroyObjectOnPickup: 1
+  worldObjectId: 
 --- !u!65 &195353361
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9408,6 +9409,7 @@ MonoBehaviour:
   pickupSound: {fileID: 8300000, guid: 64e674b5f9ad55e43bb5e2ec1adeb0ba, type: 3}
   pickupSoundVolume: 1
   destroyObjectOnPickup: 1
+  worldObjectId: 
 --- !u!65 &762625454
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10627,6 +10629,7 @@ MonoBehaviour:
   pickupSound: {fileID: 8300000, guid: 64e674b5f9ad55e43bb5e2ec1adeb0ba, type: 3}
   pickupSoundVolume: 1
   destroyObjectOnPickup: 1
+  worldObjectId: 
 --- !u!65 &863041241
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12612,6 +12615,7 @@ MonoBehaviour:
   pickupSound: {fileID: 8300000, guid: 64e674b5f9ad55e43bb5e2ec1adeb0ba, type: 3}
   pickupSoundVolume: 1
   destroyObjectOnPickup: 1
+  worldObjectId: 
 --- !u!65 &979202703
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14677,6 +14681,7 @@ MonoBehaviour:
   pickupSound: {fileID: 8300000, guid: 64e674b5f9ad55e43bb5e2ec1adeb0ba, type: 3}
   pickupSoundVolume: 1
   destroyObjectOnPickup: 1
+  worldObjectId: 
 --- !u!65 &1107144971
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19747,6 +19752,7 @@ MonoBehaviour:
   pickupSound: {fileID: 8300000, guid: 64e674b5f9ad55e43bb5e2ec1adeb0ba, type: 3}
   pickupSoundVolume: 1
   destroyObjectOnPickup: 1
+  worldObjectId: 
 --- !u!114 &1526976730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24973,6 +24979,7 @@ MonoBehaviour:
   pickupSound: {fileID: 8300000, guid: 64e674b5f9ad55e43bb5e2ec1adeb0ba, type: 3}
   pickupSoundVolume: 1
   destroyObjectOnPickup: 1
+  worldObjectId: 
 --- !u!65 &1972320682
 BoxCollider:
   m_ObjectHideFlags: 0
