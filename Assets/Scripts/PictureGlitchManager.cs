@@ -1,106 +1,177 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class PictureGlitchManager : MonoBehaviour
 {
     [Header("무서운 그림 재질")]
-    public Material scaryMaterial;
+    [SerializeField] private Material scaryMaterial;
 
-    [Header("글리치 지속 시간")]
-    public float scaryDuration = 0.5f;
+    [Header("글리치 지속 시간 (현실 시간 기준)")]
+    [SerializeField] private float scaryDuration = 0.5f;
 
-    [Header("이 방의 액자들 (Inspector에서 직접 연결)")]
-    public List<MeshRenderer> picturesInRoom;
+    [Header("이 방의 액자들")]
+    [SerializeField] private List<MeshRenderer> picturesInRoom;
 
-    // material 대신 sharedMaterial 사용 → 메모리 누수 방지
-    private Dictionary<MeshRenderer, Material> originalMaterials
+    // 각 액자의 원래 런타임 머티리얼 저장
+    private readonly Dictionary<MeshRenderer, Material> originalMaterials
         = new Dictionary<MeshRenderer, Material>();
 
-    private Coroutine glitchRoutine;
-    public bool isPlayerInRoom = false;
+    // 생성된 런타임 Material Instance 추적
+    private readonly List<Material> runtimeMaterialInstances
+        = new List<Material>();
 
-    void Start()
+    // 현재 글리치 중인 액자들
+    private readonly List<MeshRenderer> activeGlitchPictures
+        = new List<MeshRenderer>();
+
+    // 플레이어 방 안 여부
+    private bool isPlayerInRoom = false;
+    public bool IsPlayerInRoom => isPlayerInRoom;
+
+    // 글리치 실행 여부
+    private bool isGlitchRunning = false;
+
+    // 글리치 종료 시각 (현실 시간 기준)
+    private float glitchEndTime;
+
+    private void Start()
     {
         foreach (var renderer in picturesInRoom)
         {
-            if (renderer != null)
-                // sharedMaterial 사용 → 인스턴스 생성 안 함
-                originalMaterials[renderer] = renderer.sharedMaterial;
+            if (renderer == null)
+                continue;
+
+            // 런타임 전용 Material Instance 생성
+            Material runtimeInstance = renderer.material;
+
+            // 원래 머티리얼 저장
+            originalMaterials[renderer] = runtimeInstance;
+
+            // 나중에 Destroy하기 위해 추적
+            runtimeMaterialInstances.Add(runtimeInstance);
         }
     }
 
-    void OnDisable()
+    private void Update()
     {
-        // 오브젝트 비활성화 시 코루틴 정리
-        StopAllCoroutines();
-        glitchRoutine = null;
-        RestoreAll();
-    }
+        if (!isGlitchRunning)
+            return;
 
-    void OnDestroy()
-    {
-        // 오브젝트 삭제 시 코루틴 정리
-        StopAllCoroutines();
-        glitchRoutine = null;
+        // Time.timeScale 영향 안 받는 현실 시간 기준
+        if (Time.unscaledTime >= glitchEndTime)
+        {
+            RestoreGlitch();
+        }
     }
 
     public void TriggerGlitch()
     {
-        if (!isPlayerInRoom) return;
-        if (glitchRoutine != null) return;
-        if (!gameObject.activeInHierarchy) return; // 비활성화 상태면 무시
-        glitchRoutine = StartCoroutine(SingleGlitchRoutine());
-    }
+        // 플레이어 없으면 실행 안 함
+        if (!isPlayerInRoom)
+            return;
 
-    IEnumerator SingleGlitchRoutine()
-    {
-        List<MeshRenderer> allRenderers = new List<MeshRenderer>(picturesInRoom);
-        int count = Random.Range(1, allRenderers.Count + 1);
+        // 이미 실행 중이면 중복 실행 방지
+        if (isGlitchRunning)
+            return;
 
-        List<MeshRenderer> selected = new List<MeshRenderer>();
+        activeGlitchPictures.Clear();
+
+        List<MeshRenderer> candidates =
+            new List<MeshRenderer>(picturesInRoom);
+
+        if (candidates.Count == 0)
+            return;
+
+        // 랜덤 개수 선택
+        int count = Random.Range(1, candidates.Count + 1);
+
         for (int i = 0; i < count; i++)
         {
-            if (allRenderers.Count == 0) break;
-            int idx = Random.Range(0, allRenderers.Count);
-            selected.Add(allRenderers[idx]);
-            allRenderers.RemoveAt(idx);
+            if (candidates.Count == 0)
+                break;
+
+            int idx = Random.Range(0, candidates.Count);
+
+            MeshRenderer target = candidates[idx];
+
+            candidates.RemoveAt(idx);
+
+            if (target == null)
+                continue;
+
+            activeGlitchPictures.Add(target);
         }
 
-        // sharedMaterial 사용 → 메모리 누수 방지
-        foreach (var r in selected)
-            if (r != null) r.sharedMaterial = scaryMaterial;
+        // 무서운 그림 적용
+        foreach (var renderer in activeGlitchPictures)
+        {
+            if (renderer == null)
+                continue;
 
-        yield return new WaitForSeconds(scaryDuration);
+            renderer.material = scaryMaterial;
+        }
 
-        // 복구도 sharedMaterial로
-        foreach (var r in selected)
-            if (r != null && originalMaterials.ContainsKey(r))
-                r.sharedMaterial = originalMaterials[r];
+        isGlitchRunning = true;
 
-        glitchRoutine = null;
+        // 현실 시간 기준 종료 시각 설정
+        glitchEndTime = Time.unscaledTime + scaryDuration;
     }
 
-    void OnTriggerEnter(Collider other)
+    private void RestoreGlitch()
     {
-        if (other.CompareTag("Player")) isPlayerInRoom = true;
+        foreach (var renderer in activeGlitchPictures)
+        {
+            if (renderer == null)
+                continue;
+
+            if (!originalMaterials.ContainsKey(renderer))
+                continue;
+
+            renderer.material = originalMaterials[renderer];
+        }
+
+        activeGlitchPictures.Clear();
+
+        isGlitchRunning = false;
     }
 
-    void OnTriggerExit(Collider other)
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isPlayerInRoom = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             isPlayerInRoom = false;
-            StopAllCoroutines();
-            glitchRoutine = null;
-            RestoreAll();
+
+            // 방 나가면 즉시 원상복구
+            RestoreGlitch();
         }
     }
 
-    private void RestoreAll()
+    private void OnDisable()
     {
-        foreach (var kvp in originalMaterials)
-            if (kvp.Key != null)
-                kvp.Key.sharedMaterial = kvp.Value;
+        RestoreGlitch();
+    }
+
+    private void OnDestroy()
+    {
+        // 생성한 런타임 Material Instance 정리
+        foreach (var mat in runtimeMaterialInstances)
+        {
+            if (mat != null)
+            {
+                Destroy(mat);
+            }
+        }
+
+        runtimeMaterialInstances.Clear();
+        originalMaterials.Clear();
+        activeGlitchPictures.Clear();
     }
 }

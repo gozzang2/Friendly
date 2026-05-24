@@ -14,24 +14,23 @@ public class HorrorDirector : Agent
     private const int IDLE_ACTION = 0;
 
     // ────────────────────────────────────────────
-    // 보상 가중치 (Inspector 튜닝 가능)
+    // 보상 가중치
     // ────────────────────────────────────────────
     [Header("Fear Signal 가중치")]
-    public float micWeight = 0.7f;
-    public float mouseWeight = 0.3f;
+    [SerializeField] private float micWeight = 0.7f;
+    [SerializeField] private float mouseWeight = 0.3f;
 
     [Header("보상 스케일")]
-    public float fearRewardScale = 1.5f;
-    public float repetitionPenalty = -0.8f;
-    public float decayPenalty = -0.5f;
-    public float diversityRewardScale = 0.4f;
-    public float silenceRewardPerStep = 0.05f;
-    public float silenceRewardCap = 0.3f;
-    public float wastedActionPenalty = -0.2f;
+    [SerializeField] private float baseReward = 0.4f;
+    [SerializeField] private float fearRewardScale = 2.0f;
+    [SerializeField] private float repetitionPenalty = -0.7f;
+    [SerializeField] private float decayPenalty = -0.2f;
+    [SerializeField] private float diversityRewardScale = 0.6f;
+    [SerializeField] private float silenceRewardPerStep = 0.01f;
 
     [Header("페이싱 설정")]
-    public int minSilenceStepsForReward = 3;
-    public int maxSilenceStepsBeforePenalty = 20;
+    [SerializeField] private int minSilenceStepsForReward = 3;
+    [SerializeField] private int maxSilenceStepsBeforePenalty = 30;
 
     // ────────────────────────────────────────────
     // 내부 상태
@@ -86,13 +85,16 @@ public class HorrorDirector : Agent
 
     // ────────────────────────────────────────────
     // Observation: 총 21개
-    // Behavior Parameters > Vector Observation Space Size = 17 로 맞출 것
     // ────────────────────────────────────────────
     public override void CollectObservations(VectorSensor sensor)
     {
-        sensor.AddObservation(mousePanicValue);   // 1
-        sensor.AddObservation(micVolumeValue);    // 2
-        sensor.AddObservation(lastFearSignal);    // 3
+        // 관측 전 시뮬레이터 1스텝 업데이트
+        if (TrainingSignalSimulator.Instance != null)
+            TrainingSignalSimulator.Instance.UpdateSimulationStep();
+
+        sensor.AddObservation(mousePanicValue);   // 1: 현재 마우스 움직임
+        sensor.AddObservation(micVolumeValue);    // 2: 현재 마이크 데시벨
+        sensor.AddObservation(lastFearSignal);    // 3: 직전 Fear Signal
 
         // 직전 행동 원-핫 인코딩
         for (int i = 0; i < ACTION_COUNT; i++)
@@ -176,33 +178,25 @@ public class HorrorDirector : Agent
           + (normalizedMouse * mouseWeight)
           + (simultaneousBonus * 0.3f));
 
+        Debug.Log($"[HorrorDirector] action: {action}, mic: {normalizedMic:F3}, mouse: {normalizedMouse:F3}, fearSignal: {fearSignal:F3}");
+
         // ────────────────────────────────
-        // 보상 레이어 1: 즉각 반응 보상
+        // 보상 레이어 1: 즉각 반응 보상, 다양성 보상
         // ────────────────────────────────
         if (action != IDLE_ACTION)
         {
-            bool isActingNow = false;
-
-            if (TrainingSignalSimulator.Instance != null)
-                isActingNow = ScareManager_Training.Instance != null
-                           && ScareManager_Training.Instance.isActing;
-            else
-                isActingNow = ScareManager.Instance != null
-                           && ScareManager.Instance.isActing;
-
-            if (isActingNow)
-            {
-                // 쿨타임 중 낭비 행동 → 페널티
-                AddReward(wastedActionPenalty);
-            }
-            else
-            {
-                // 유효한 연출 → Fear Signal에 비례한 보상
-                //AddReward(fearSignal * fearRewardScale);
-                float fearReward = (fearSignal + 0.3f) * fearRewardScale;
+                // 기본보상 + 유효한 연출 → Fear Signal에 비례한 보상
+                //AddReward(baseReward + fearSignal * fearRewardScale);
+                float fearReward = baseReward + fearSignal * fearRewardScale;
                 AddReward(fearReward);
+
+                // 실제 실행된 연출만 다양성 카운트에 포함
+                actionUsageCount[action]++;
+                UpdateActionHistory(action);
+                float diversity = CalculateDiversityScore();
+                AddReward(diversity * diversityRewardScale);
             }
-        }
+        
 
         // ────────────────────────────────
         // 보상 레이어 2: 반복 페널티
@@ -223,19 +217,7 @@ public class HorrorDirector : Agent
         }
 
         // ────────────────────────────────
-        // 보상 레이어 3: 다양성 보상
-        // ────────────────────────────────
-        if (action != IDLE_ACTION)
-        {
-            actionUsageCount[action]++;
-            UpdateActionHistory(action);
-
-            float diversity = CalculateDiversityScore();
-            AddReward(diversity * diversityRewardScale);
-        }
-
-        // ────────────────────────────────
-        // 보상 레이어 4: 페이싱(침묵) 보상
+        // 보상 레이어 3: 페이싱(침묵) 보상
         // ────────────────────────────────
         if (action == IDLE_ACTION)
         {
@@ -249,7 +231,7 @@ public class HorrorDirector : Agent
             else if (consecutiveSilence >= maxSilenceStepsBeforePenalty)
             {
                 // 너무 오래 아무것도 안 함 → 방치 패널티
-                AddReward(-0.1f);
+                AddReward(-0.3f);
             }
         }
         else
@@ -350,16 +332,4 @@ public class HorrorDirector : Agent
         return total;
     }
 
-    // ────────────────────────────────────────────
-    // 테스트용 Heuristic (키보드 1~4로 공포 연출 수동 테스트)
-    // ────────────────────────────────────────────
-    public override void Heuristic(in ActionBuffers actionsOut)
-    {
-        var d = actionsOut.DiscreteActions;
-        if (Input.GetKey(KeyCode.Alpha1)) d[0] = 1;
-        else if (Input.GetKey(KeyCode.Alpha2)) d[0] = 2;
-        else if (Input.GetKey(KeyCode.Alpha3)) d[0] = 3;
-        else if (Input.GetKey(KeyCode.Alpha4)) d[0] = 4;
-        else d[0] = 0;
-    }
 }
