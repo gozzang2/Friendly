@@ -18,7 +18,8 @@ public class ScareManager : MonoBehaviour
     // ──────────────────────────────────────
     [Header("2. 조명 깜빡임")]
     [Tooltip("ScareLight 태그 달린 조명들 자동 수집됨")]
-    private List<Light> scareLights = new List<Light>();
+    private List<(GameObject glow, Transform parent)> scareLights
+    = new List<(GameObject, Transform)>();
     public float lightFlickerDuration = 1.5f;
 
     // ──────────────────────────────────────
@@ -77,8 +78,9 @@ public class ScareManager : MonoBehaviour
         GameObject[] lightObjects = GameObject.FindGameObjectsWithTag("ScareLight");
         foreach (var obj in lightObjects)
         {
-            Light l = obj.GetComponent<Light>();
-            if (l != null) scareLights.Add(l);
+            Transform glow = obj.transform.Find("Glow");
+            if (glow != null)
+                scareLights.Add((glow.gameObject, obj.transform));
         }
         Debug.Log($"[ScareManager] ScareLight {scareLights.Count}개 수집");
 
@@ -113,10 +115,10 @@ public class ScareManager : MonoBehaviour
     public bool HasNearbyLight()
     {
         if (playerTransform == null) return false;
-        foreach (var l in scareLights)
+        foreach (var (glow, parent) in scareLights)
         {
-            if (l == null) continue;
-            if (Vector3.Distance(playerTransform.position, l.transform.position)
+            if (parent == null) continue;
+            if (Vector3.Distance(playerTransform.position, parent.position)
                 <= nearbyCheckRadius)
                 return true;
         }
@@ -144,7 +146,7 @@ public class ScareManager : MonoBehaviour
     public bool CanTriggerGlitch()
     {
         foreach (var manager in pictureGlitchManagers)
-            if (manager != null && manager.isPlayerInRoom)
+            if (manager != null && manager.IsPlayerInRoom)
                 return true;
         return false;
     }
@@ -171,6 +173,7 @@ public class ScareManager : MonoBehaviour
     // Action 2: 조명 깜빡임
     public void CallRedLights()
     {
+        Debug.Log($"[ScareManager] CallRedLights isActing: {isActing}");
         if (isActing) return;
         if (!HasNearbyLight()) return;
         StartCoroutine(LightFlickerRoutine());
@@ -179,6 +182,7 @@ public class ScareManager : MonoBehaviour
     // Action 3: 점프스케어 (UI 이미지)
     public void CallJumpScare()
     {
+        Debug.Log($"[ScareManager] isActing: {isActing}");
         if (isActing) return;
         if (jumpScareCanvas.worldCamera == null) AssignCameraToCanvas();
         if (jumpScareImage == null) return;
@@ -188,6 +192,7 @@ public class ScareManager : MonoBehaviour
     // Action 4: 소리 재생 (종류 랜덤)
     public void CallScareSound()
     {
+        Debug.Log($"[ScareManager] CallScareSound isActing: {isActing}");
         if (isActing) return;
         if (scareAudio == null) return;
 
@@ -212,7 +217,7 @@ public class ScareManager : MonoBehaviour
         // 플레이어가 있는 방의 글리치 매니저만 실행
         foreach (var manager in pictureGlitchManagers)
         {
-            if (manager != null && manager.isPlayerInRoom)
+            if (manager != null && manager.IsPlayerInRoom)
             {
                 manager.TriggerGlitch();
                 return; // 하나만 실행
@@ -229,35 +234,31 @@ public class ScareManager : MonoBehaviour
         isActing = true;
 
         // 주변 조명만 깜빡임
-        List<Light> nearbyLights = new List<Light>();
-        foreach (var l in scareLights)
+        List<GameObject> nearbyLights = new List<GameObject>();
+        foreach (var (glow, parent) in scareLights)
         {
-            if (l == null) continue;
+            if (parent == null) continue;
             if (playerTransform == null ||
-                Vector3.Distance(playerTransform.position, l.transform.position)
+                Vector3.Distance(playerTransform.position, parent.position)
                 <= nearbyCheckRadius)
-                nearbyLights.Add(l);
+                nearbyLights.Add(glow);
         }
 
         float elapsed = 0f;
         while (elapsed < lightFlickerDuration)
         {
-            foreach (var l in nearbyLights) l.enabled = !l.enabled;
+            foreach (var l in nearbyLights) l.SetActive(!l.activeSelf);
             float interval = Random.Range(0.05f, 0.2f);
             yield return new WaitForSeconds(interval);
             elapsed += interval;
         }
-
-        // 원래대로 복구
-        foreach (var l in nearbyLights) l.enabled = true;
+        foreach (var l in nearbyLights) l.SetActive(true);
         isActing = false;
     }
     IEnumerator JumpScareUIRoutine()
     {
         isActing = true;
         jumpScareImage.SetActive(true);
-        if (scareAudio != null && cryingSound != null)
-            scareAudio.PlayOneShot(cryingSound);
         yield return new WaitForSeconds(0.6f);
         jumpScareImage.SetActive(false);
         isActing = false;

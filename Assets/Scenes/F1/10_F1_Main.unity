@@ -1951,8 +1951,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f043a66a9e47e94caf9270f14453a89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scaryMaterial: {fileID: 2100000, guid: aff263dcdade5d84fb6880b68e26b9ec, type: 2}
-  scaryDuration: 0.8
+  scaryMaterial: {fileID: 2100000, guid: d7535577bd8b1c144a8672c03b817b87, type: 2}
+  scaryDuration: 3
   picturesInRoom:
   - {fileID: 1800817588}
   - {fileID: 1800817587}
@@ -1963,7 +1963,6 @@ MonoBehaviour:
   - {fileID: 287985247}
   - {fileID: 1141574854}
   - {fileID: 1497809951}
-  isPlayerInRoom: 0
 --- !u!65 &96062650
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7346,7 +7345,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &467080041
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10112,6 +10111,11 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 50, y: 10, z: 70}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &587102567 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5218734965310417284, guid: b33cf495e772ce64ab872dd0bb4e7983, type: 3}
+  m_PrefabInstance: {fileID: 1200298367}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &588025040
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14012,6 +14016,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1845061296147831934, guid: b33cf495e772ce64ab872dd0bb4e7983, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8564461849130234699, guid: b33cf495e772ce64ab872dd0bb4e7983, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8890821166399119553, guid: b33cf495e772ce64ab872dd0bb4e7983, type: 3}
       propertyPath: m_Name
       value: TV_Apt_01 (1)
@@ -14024,11 +14036,6 @@ PrefabInstance:
 --- !u!4 &779237936 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 968292777417071141, guid: b33cf495e772ce64ab872dd0bb4e7983, type: 3}
-  m_PrefabInstance: {fileID: 779237935}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &779237937 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 1984632464058045902, guid: b33cf495e772ce64ab872dd0bb4e7983, type: 3}
   m_PrefabInstance: {fileID: 779237935}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &784357969
@@ -14330,6 +14337,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1447381917}
     m_Modifications:
+    - target: {fileID: 4383057954431343551, guid: ef58ebe18ee2ab64b8eaac1f70024d29, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5545149646685965750, guid: ef58ebe18ee2ab64b8eaac1f70024d29, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.04
@@ -17685,15 +17696,14 @@ MonoBehaviour:
   MaxStep: 0
   micWeight: 0.7
   mouseWeight: 0.3
-  fearRewardScale: 1.5
-  repetitionPenalty: -0.8
-  decayPenalty: -0.5
-  diversityRewardScale: 0.4
-  silenceRewardPerStep: 0.05
-  silenceRewardCap: 0.3
-  wastedActionPenalty: -0.2
+  baseReward: 0.4
+  fearRewardScale: 2
+  repetitionPenalty: -0.7
+  decayPenalty: -0.2
+  diversityRewardScale: 0.6
+  silenceRewardPerStep: 0.01
   minSilenceStepsForReward: 3
-  maxSilenceStepsBeforePenalty: 20
+  maxSilenceStepsBeforePenalty: 30
 --- !u!114 &1008302561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17711,14 +17721,14 @@ MonoBehaviour:
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 0
-      BranchSizes: 05000000
-    VectorActionSize: 05000000
+      BranchSizes: 07000000
+    VectorActionSize: 07000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 5022602860645237092, guid: 4bd3f552ca2b7974991792d1b8edab8d, type: 3}
   m_InferenceDevice: 0
-  m_BehaviorType: 0
+  m_BehaviorType: 2
   m_BehaviorName: HorrorAI
   TeamId: 0
   m_UseChildSensors: 1
@@ -17737,9 +17747,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DecisionPeriod: 20
+  DecisionPeriod: 170
   DecisionStep: 0
-  TakeActionsBetweenDecisions: 1
+  TakeActionsBetweenDecisions: 0
 --- !u!1001 &1008383275
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18701,15 +18711,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scaryMaterial: {fileID: 2100000, guid: d7535577bd8b1c144a8672c03b817b87, type: 2}
-  scaryDuration: 0.8
+  scaryDuration: 3
   picturesInRoom:
   - {fileID: 1443020478}
   - {fileID: 2099714369}
   - {fileID: 1315690770}
-  - {fileID: 779237937}
-  - {fileID: 1200298369}
   - {fileID: 143205308}
-  isPlayerInRoom: 0
+  - {fileID: 587102567}
+  - {fileID: 1341184651}
 --- !u!65 &1045157674
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20542,6 +20551,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1493427759}
     m_Modifications:
+    - target: {fileID: 3216723604250196491, guid: e9e7cf8474d00b340a4477f53140bec8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5417272378840401517, guid: e9e7cf8474d00b340a4477f53140bec8, type: 3}
       propertyPath: m_Name
       value: Table Set 1 Grey Wood Variant (2)
@@ -21772,11 +21785,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 968292777417071141, guid: b33cf495e772ce64ab872dd0bb4e7983, type: 3}
   m_PrefabInstance: {fileID: 1200298367}
   m_PrefabAsset: {fileID: 0}
---- !u!23 &1200298369 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 1984632464058045902, guid: b33cf495e772ce64ab872dd0bb4e7983, type: 3}
-  m_PrefabInstance: {fileID: 1200298367}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1202462518
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22974,6 +22982,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1447381917}
     m_Modifications:
+    - target: {fileID: 4383057954431343551, guid: ef58ebe18ee2ab64b8eaac1f70024d29, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5545149646685965750, guid: ef58ebe18ee2ab64b8eaac1f70024d29, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.9411488
@@ -23017,6 +23029,10 @@ PrefabInstance:
     - target: {fileID: 8913750980977116659, guid: ef58ebe18ee2ab64b8eaac1f70024d29, type: 3}
       propertyPath: m_Name
       value: My_Lamp_Ceiling_Apt_02 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8913750980977116659, guid: ef58ebe18ee2ab64b8eaac1f70024d29, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8913750980977116659, guid: ef58ebe18ee2ab64b8eaac1f70024d29, type: 3}
       propertyPath: m_TagString
@@ -24041,6 +24057,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4849449737503686, guid: 9ad137f5f3bcae742b86b3352c4879bd, type: 3}
   m_PrefabInstance: {fileID: 1325419666}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1341184651 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5218734965310417284, guid: b33cf495e772ce64ab872dd0bb4e7983, type: 3}
+  m_PrefabInstance: {fileID: 779237935}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1344242497
 PrefabInstance:
@@ -26026,7 +26047,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scaryMaterial: {fileID: 2100000, guid: d7535577bd8b1c144a8672c03b817b87, type: 2}
-  scaryDuration: 0.8
+  scaryDuration: 3
   picturesInRoom:
   - {fileID: 888143985}
   - {fileID: 1721695794}
@@ -26034,7 +26055,6 @@ MonoBehaviour:
   - {fileID: 1800467279}
   - {fileID: 82455534}
   - {fileID: 82455533}
-  isPlayerInRoom: 0
 --- !u!65 &1432793519
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -33227,6 +33247,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: My_Window_Frame_Apt_01 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4465378992607941681, guid: 9fe7836fbdbbc2a4c8702b43b4474dcc, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -38342,6 +38366,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1447381917}
     m_Modifications:
+    - target: {fileID: 4383057954431343551, guid: ef58ebe18ee2ab64b8eaac1f70024d29, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5545149646685965750, guid: ef58ebe18ee2ab64b8eaac1f70024d29, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.5988517
