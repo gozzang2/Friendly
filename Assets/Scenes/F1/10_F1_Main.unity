@@ -209,6 +209,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: My_Ceiling Light Bright (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4208926559941835536, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8269766698092224544, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8269766698092224544, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5812767464411336185, guid: 6a8b72e53fddd264f9f7325bc415b0f4, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -343,7 +355,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3485773276523611762, guid: a615dda7344211d47b8032925a63e51a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4208926559941835536, guid: a615dda7344211d47b8032925a63e51a, type: 3}
       propertyPath: m_Name
@@ -353,6 +365,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: ScareLight
       objectReference: {fileID: 0}
+    - target: {fileID: 8269766698092224544, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5812767464411336185, guid: 6a8b72e53fddd264f9f7325bc415b0f4, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -966,6 +982,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: My_Ceiling Light Bright
       objectReference: {fileID: 0}
+    - target: {fileID: 8269766698092224544, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5812767464411336185, guid: 6a8b72e53fddd264f9f7325bc415b0f4, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2383,6 +2403,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: My Wall Window Set 10 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2457027327201954434, guid: feae81e02c118914397908246d68a7c0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3193946160588618884, guid: feae81e02c118914397908246d68a7c0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 12
@@ -2431,11 +2455,6 @@ PrefabInstance:
 --- !u!4 &143205307 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3193946160588618884, guid: feae81e02c118914397908246d68a7c0, type: 3}
-  m_PrefabInstance: {fileID: 143205306}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &143205308 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 4482901444770819922, guid: feae81e02c118914397908246d68a7c0, type: 3}
   m_PrefabInstance: {fileID: 143205306}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &147104469
@@ -3879,9 +3898,21 @@ PrefabInstance:
       value: My_Ceiling Light Bright (2)
       objectReference: {fileID: 0}
     - target: {fileID: 4208926559941835536, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4208926559941835536, guid: a615dda7344211d47b8032925a63e51a, type: 3}
       propertyPath: m_TagString
       value: ScareLight
       objectReference: {fileID: 0}
+    - target: {fileID: 7708133909866108156, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8269766698092224544, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5812767464411336185, guid: 6a8b72e53fddd264f9f7325bc415b0f4, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6927,6 +6958,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: ScareLight
       objectReference: {fileID: 0}
+    - target: {fileID: 8269766698092224544, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5812767464411336185, guid: 6a8b72e53fddd264f9f7325bc415b0f4, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -13555,6 +13590,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5484170796833851192, guid: feae81e02c118914397908246d68a7c0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -13862,7 +13901,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3485773276523611762, guid: a615dda7344211d47b8032925a63e51a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4208926559941835536, guid: a615dda7344211d47b8032925a63e51a, type: 3}
       propertyPath: m_Name
@@ -13872,18 +13911,26 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4208926559941835536, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: m_TagString
+      value: ScareLight
+      objectReference: {fileID: 0}
     - target: {fileID: 6067516794572113890, guid: a615dda7344211d47b8032925a63e51a, type: 3}
       propertyPath: m_Color.b
-      value: 0
+      value: 0.14088884
       objectReference: {fileID: 0}
     - target: {fileID: 6067516794572113890, guid: a615dda7344211d47b8032925a63e51a, type: 3}
       propertyPath: m_Color.g
-      value: 0.13478634
+      value: 0.90188676
       objectReference: {fileID: 0}
     - target: {fileID: 6067516794572113890, guid: a615dda7344211d47b8032925a63e51a, type: 3}
       propertyPath: m_Color.r
-      value: 0.8415094
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8269766698092224544, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5812767464411336185, guid: 6a8b72e53fddd264f9f7325bc415b0f4, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14385,6 +14432,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: My_Lamp_Ceiling_Apt_02
       objectReference: {fileID: 0}
+    - target: {fileID: 8918757504839298680, guid: ef58ebe18ee2ab64b8eaac1f70024d29, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5812767464411336185, guid: 6a8b72e53fddd264f9f7325bc415b0f4, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14900,7 +14951,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3485773276523611762, guid: a615dda7344211d47b8032925a63e51a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4208926559941835536, guid: a615dda7344211d47b8032925a63e51a, type: 3}
       propertyPath: m_Name
@@ -14908,8 +14959,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4208926559941835536, guid: a615dda7344211d47b8032925a63e51a, type: 3}
       propertyPath: m_TagString
-      value: ScareLight
+      value: Untagged
       objectReference: {fileID: 0}
+    - target: {fileID: 8269766698092224544, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5812767464411336185, guid: 6a8b72e53fddd264f9f7325bc415b0f4, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -16556,6 +16611,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: ScareLight
       objectReference: {fileID: 0}
+    - target: {fileID: 8269766698092224544, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5812767464411336185, guid: 6a8b72e53fddd264f9f7325bc415b0f4, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -18716,7 +18775,6 @@ MonoBehaviour:
   - {fileID: 1443020478}
   - {fileID: 2099714369}
   - {fileID: 1315690770}
-  - {fileID: 143205308}
   - {fileID: 587102567}
   - {fileID: 1341184651}
 --- !u!65 &1045157674
@@ -19569,8 +19627,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4208926559941835536, guid: a615dda7344211d47b8032925a63e51a, type: 3}
       propertyPath: m_TagString
-      value: ScareLight
+      value: Untagged
       objectReference: {fileID: 0}
+    - target: {fileID: 8269766698092224544, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5812767464411336185, guid: 6a8b72e53fddd264f9f7325bc415b0f4, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -19699,6 +19761,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: ScareLight
       objectReference: {fileID: 0}
+    - target: {fileID: 8269766698092224544, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5812767464411336185, guid: 6a8b72e53fddd264f9f7325bc415b0f4, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -20289,6 +20355,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: My_Ceiling Light Bright
       objectReference: {fileID: 0}
+    - target: {fileID: 8269766698092224544, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5812767464411336185, guid: 6a8b72e53fddd264f9f7325bc415b0f4, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -20543,6 +20613,92 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1134608340}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1138132660
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1938959318}
+    m_Modifications:
+    - target: {fileID: 5875645595323304346, guid: 1fad47503a3acf24a838653f977cff69, type: 3}
+      propertyPath: m_Name
+      value: Laying Seizure (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539697410139345696, guid: 1fad47503a3acf24a838653f977cff69, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539697410139345696, guid: 1fad47503a3acf24a838653f977cff69, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539697410139345696, guid: 1fad47503a3acf24a838653f977cff69, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539697410139345696, guid: 1fad47503a3acf24a838653f977cff69, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.198
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539697410139345696, guid: 1fad47503a3acf24a838653f977cff69, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.226
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539697410139345696, guid: 1fad47503a3acf24a838653f977cff69, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539697410139345696, guid: 1fad47503a3acf24a838653f977cff69, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539697410139345696, guid: 1fad47503a3acf24a838653f977cff69, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539697410139345696, guid: 1fad47503a3acf24a838653f977cff69, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539697410139345696, guid: 1fad47503a3acf24a838653f977cff69, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539697410139345696, guid: 1fad47503a3acf24a838653f977cff69, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539697410139345696, guid: 1fad47503a3acf24a838653f977cff69, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539697410139345696, guid: 1fad47503a3acf24a838653f977cff69, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: 144993751980443923, guid: 1fad47503a3acf24a838653f977cff69, type: 3}
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1fad47503a3acf24a838653f977cff69, type: 3}
+--- !u!4 &1138132661 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6539697410139345696, guid: 1fad47503a3acf24a838653f977cff69, type: 3}
+  m_PrefabInstance: {fileID: 1138132660}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1138132662 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6211732833309610925, guid: 1fad47503a3acf24a838653f977cff69, type: 3}
+  m_PrefabInstance: {fileID: 1138132660}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dda98355a4fefc84c90bb03c2a856a4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1141574852
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23036,8 +23192,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8913750980977116659, guid: ef58ebe18ee2ab64b8eaac1f70024d29, type: 3}
       propertyPath: m_TagString
-      value: ScareLight
+      value: Untagged
       objectReference: {fileID: 0}
+    - target: {fileID: 8918757504839298680, guid: ef58ebe18ee2ab64b8eaac1f70024d29, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5812767464411336185, guid: 6a8b72e53fddd264f9f7325bc415b0f4, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -23102,7 +23262,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 1751565365396325425, guid: eca9a63e5ba841942bbbd9ce191a2643, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1362220856}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1370536605321993867, guid: eca9a63e5ba841942bbbd9ce191a2643, type: 3}
       insertIndex: -1
@@ -24115,6 +24278,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: My_Ceiling Light Bright (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8269766698092224544, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5812767464411336185, guid: 6a8b72e53fddd264f9f7325bc415b0f4, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -24465,7 +24632,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3485773276523611762, guid: a615dda7344211d47b8032925a63e51a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4208926559941835536, guid: a615dda7344211d47b8032925a63e51a, type: 3}
       propertyPath: m_Name
@@ -24475,6 +24642,26 @@ PrefabInstance:
       propertyPath: m_TagString
       value: ScareLight
       objectReference: {fileID: 0}
+    - target: {fileID: 6067516794572113890, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: m_Color.b
+      value: 0.02210377
+      objectReference: {fileID: 0}
+    - target: {fileID: 6067516794572113890, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6067516794572113890, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: m_Color.r
+      value: 0.68235296
+      objectReference: {fileID: 0}
+    - target: {fileID: 7708133909866108156, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: m_TagString
+      value: ScareLight
+      objectReference: {fileID: 0}
+    - target: {fileID: 8269766698092224544, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5812767464411336185, guid: 6a8b72e53fddd264f9f7325bc415b0f4, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -24671,6 +24858,92 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4183357121803592, guid: 310a0532a0b197848b314b35222cad1a, type: 3}
   m_PrefabInstance: {fileID: 1361978577}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1362220855
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1273000725}
+    m_Modifications:
+    - target: {fileID: 5875645595323304346, guid: 1fad47503a3acf24a838653f977cff69, type: 3}
+      propertyPath: m_Name
+      value: Laying Seizure (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539697410139345696, guid: 1fad47503a3acf24a838653f977cff69, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539697410139345696, guid: 1fad47503a3acf24a838653f977cff69, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539697410139345696, guid: 1fad47503a3acf24a838653f977cff69, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539697410139345696, guid: 1fad47503a3acf24a838653f977cff69, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.236
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539697410139345696, guid: 1fad47503a3acf24a838653f977cff69, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.262
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539697410139345696, guid: 1fad47503a3acf24a838653f977cff69, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.10599995
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539697410139345696, guid: 1fad47503a3acf24a838653f977cff69, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539697410139345696, guid: 1fad47503a3acf24a838653f977cff69, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539697410139345696, guid: 1fad47503a3acf24a838653f977cff69, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539697410139345696, guid: 1fad47503a3acf24a838653f977cff69, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539697410139345696, guid: 1fad47503a3acf24a838653f977cff69, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539697410139345696, guid: 1fad47503a3acf24a838653f977cff69, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539697410139345696, guid: 1fad47503a3acf24a838653f977cff69, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: 144993751980443923, guid: 1fad47503a3acf24a838653f977cff69, type: 3}
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1fad47503a3acf24a838653f977cff69, type: 3}
+--- !u!4 &1362220856 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6539697410139345696, guid: 1fad47503a3acf24a838653f977cff69, type: 3}
+  m_PrefabInstance: {fileID: 1362220855}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1362220857 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6211732833309610925, guid: 1fad47503a3acf24a838653f977cff69, type: 3}
+  m_PrefabInstance: {fileID: 1362220855}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dda98355a4fefc84c90bb03c2a856a4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1366736796
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26840,8 +27113,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4208926559941835536, guid: a615dda7344211d47b8032925a63e51a, type: 3}
       propertyPath: m_TagString
-      value: ScareLight
+      value: Untagged
       objectReference: {fileID: 0}
+    - target: {fileID: 8269766698092224544, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5812767464411336185, guid: 6a8b72e53fddd264f9f7325bc415b0f4, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -27502,6 +27779,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: My_Ceiling Light Bright (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4208926559941835536, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: m_TagString
+      value: ScareLight
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -27624,7 +27905,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3485773276523611762, guid: a615dda7344211d47b8032925a63e51a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4208926559941835536, guid: a615dda7344211d47b8032925a63e51a, type: 3}
       propertyPath: m_Name
@@ -27634,6 +27915,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: ScareLight
       objectReference: {fileID: 0}
+    - target: {fileID: 8269766698092224544, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5812767464411336185, guid: 6a8b72e53fddd264f9f7325bc415b0f4, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -28205,6 +28490,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3485773276523611762, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4208926559941835536, guid: a615dda7344211d47b8032925a63e51a, type: 3}
       propertyPath: m_Name
       value: My_Ceiling Light Bright (1)
@@ -28217,6 +28506,14 @@ PrefabInstance:
       propertyPath: m_TagString
       value: ScareLight
       objectReference: {fileID: 0}
+    - target: {fileID: 7708133909866108156, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8269766698092224544, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5812767464411336185, guid: 6a8b72e53fddd264f9f7325bc415b0f4, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -29603,7 +29900,9 @@ MonoBehaviour:
   mannequins:
   - {fileID: 473244459}
   - {fileID: 1747755359}
-  lightFlickerDuration: 1.5
+  - {fileID: 1138132662}
+  - {fileID: 1362220857}
+  lightFlickerDuration: 3
   jumpScareCanvas: {fileID: 1156689703}
   jumpScareImage: {fileID: 1773632354}
   scareAudio: {fileID: 1606355787}
@@ -30023,14 +30322,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3485773276523611762, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4208926559941835536, guid: a615dda7344211d47b8032925a63e51a, type: 3}
       propertyPath: m_Name
       value: My_Ceiling Light Bright (2)
       objectReference: {fileID: 0}
     - target: {fileID: 4208926559941835536, guid: a615dda7344211d47b8032925a63e51a, type: 3}
       propertyPath: m_TagString
-      value: ScareLight
+      value: Untagged
       objectReference: {fileID: 0}
+    - target: {fileID: 8269766698092224544, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5812767464411336185, guid: 6a8b72e53fddd264f9f7325bc415b0f4, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -31084,6 +31391,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8269766698092224544, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5812767464411336185, guid: 6a8b72e53fddd264f9f7325bc415b0f4, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -31212,6 +31523,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: My_Ceiling Light Bright (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8269766698092224544, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5812767464411336185, guid: 6a8b72e53fddd264f9f7325bc415b0f4, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -32390,7 +32705,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3485773276523611762, guid: a615dda7344211d47b8032925a63e51a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4208926559941835536, guid: a615dda7344211d47b8032925a63e51a, type: 3}
       propertyPath: m_Name
@@ -32557,9 +32872,17 @@ PrefabInstance:
       value: My_Ceiling Light Bright
       objectReference: {fileID: 0}
     - target: {fileID: 4208926559941835536, guid: a615dda7344211d47b8032925a63e51a, type: 3}
-      propertyPath: m_TagString
-      value: ScareLight
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4208926559941835536, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 8269766698092224544, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5812767464411336185, guid: 6a8b72e53fddd264f9f7325bc415b0f4, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -32933,6 +33256,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: My_Ceiling Light Bright (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8269766698092224544, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5812767464411336185, guid: 6a8b72e53fddd264f9f7325bc415b0f4, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -33251,6 +33578,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5244135522208610796, guid: 9fe7836fbdbbc2a4c8702b43b4474dcc, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -33322,6 +33653,10 @@ PrefabInstance:
     - target: {fileID: 3193946160588618884, guid: feae81e02c118914397908246d68a7c0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5484170796833851192, guid: feae81e02c118914397908246d68a7c0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -33773,6 +34108,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: My_Ceiling Light Bright (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8269766698092224544, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5812767464411336185, guid: 6a8b72e53fddd264f9f7325bc415b0f4, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -34539,16 +34878,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3485773276523611762, guid: a615dda7344211d47b8032925a63e51a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4208926559941835536, guid: a615dda7344211d47b8032925a63e51a, type: 3}
       propertyPath: m_Name
       value: My_Ceiling Light Bright
       objectReference: {fileID: 0}
+    - target: {fileID: 4208926559941835536, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: m_TagString
+      value: ScareLight
+      objectReference: {fileID: 0}
     - target: {fileID: 7708133909866108156, guid: a615dda7344211d47b8032925a63e51a, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8269766698092224544, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5812767464411336185, guid: 6a8b72e53fddd264f9f7325bc415b0f4, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -35206,7 +35553,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 1751565365396325425, guid: eca9a63e5ba841942bbbd9ce191a2643, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1138132661}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1370536605321993867, guid: eca9a63e5ba841942bbbd9ce191a2643, type: 3}
       insertIndex: -1
@@ -36098,10 +36448,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3485773276523611762, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4208926559941835536, guid: a615dda7344211d47b8032925a63e51a, type: 3}
       propertyPath: m_Name
       value: My_Ceiling Light Bright (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8269766698092224544, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5812767464411336185, guid: 6a8b72e53fddd264f9f7325bc415b0f4, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -37011,8 +37369,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4208926559941835536, guid: a615dda7344211d47b8032925a63e51a, type: 3}
       propertyPath: m_TagString
-      value: ScareLight
+      value: Untagged
       objectReference: {fileID: 0}
+    - target: {fileID: 8269766698092224544, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5812767464411336185, guid: 6a8b72e53fddd264f9f7325bc415b0f4, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -37215,6 +37577,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: My_Ceiling Light Bright (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8269766698092224544, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5812767464411336185, guid: 6a8b72e53fddd264f9f7325bc415b0f4, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -37417,6 +37783,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: ScareLight
       objectReference: {fileID: 0}
+    - target: {fileID: 8269766698092224544, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5812767464411336185, guid: 6a8b72e53fddd264f9f7325bc415b0f4, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -37705,6 +38075,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: My_Ceiling Light Bright (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4208926559941835536, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: m_TagString
+      value: ScareLight
+      objectReference: {fileID: 0}
+    - target: {fileID: 8269766698092224544, guid: a615dda7344211d47b8032925a63e51a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5812767464411336185, guid: 6a8b72e53fddd264f9f7325bc415b0f4, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

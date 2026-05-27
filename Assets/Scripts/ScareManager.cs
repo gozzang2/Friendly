@@ -20,7 +20,8 @@ public class ScareManager : MonoBehaviour
     [Tooltip("ScareLight 태그 달린 조명들 자동 수집됨")]
     private List<(GameObject glow, Transform parent)> scareLights
     = new List<(GameObject, Transform)>();
-    public float lightFlickerDuration = 1.5f;
+    [Header("2. 조명 깜빡임")]
+    public float lightFlickerDuration = 3f;
 
     // ──────────────────────────────────────
     // 3. 점프스케어
