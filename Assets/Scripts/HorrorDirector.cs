@@ -53,6 +53,12 @@ public class HorrorDirector : Agent
     public override void Initialize()
     {
         actionUsageCount = new int[ACTION_COUNT];
+
+        // 씬 시작 시 성향 벡터 로드
+        // 1부: PlayerPrefs에 저장된 값 없으면 기본값 0f
+        // 2부: 1부에서 저장한 성향 벡터 로드
+        if (PlayerProfiler.Instance != null)
+            PlayerProfiler.Instance.LoadProfile();
     }
 
     public override void OnEpisodeBegin()
@@ -84,7 +90,7 @@ public class HorrorDirector : Agent
     }
 
     // ────────────────────────────────────────────
-    // Observation: 총 21개
+    // Observation: 총 29개
     // ────────────────────────────────────────────
     public override void CollectObservations(VectorSensor sensor)
     {
@@ -96,18 +102,18 @@ public class HorrorDirector : Agent
         sensor.AddObservation(micVolumeValue);    // 2: 현재 마이크 데시벨
         sensor.AddObservation(lastFearSignal);    // 3: 직전 Fear Signal
 
-        // 직전 행동 원-핫 인코딩
+        // 직전 행동 원-핫 인코딩 4-10
         for (int i = 0; i < ACTION_COUNT; i++)
-            sensor.AddObservation(lastAction == i ? 1f : 0f); // 4~12
+            sensor.AddObservation(lastAction == i ? 1f : 0f); 
 
-        // 연속 침묵 길이 (정규화)
+        // 연속 침묵 길이 (정규화) 11
         sensor.AddObservation(
-            (float)consecutiveSilence / maxSilenceStepsBeforePenalty); // 13
+            (float)consecutiveSilence / maxSilenceStepsBeforePenalty); 
 
-        // 각 연출 사용 빈도
+        // 각 연출 사용 빈도 12-17
         int total = Mathf.Max(1, GetTotalNonIdleActions());
         for (int i = 1; i < ACTION_COUNT; i++)
-            sensor.AddObservation((float)actionUsageCount[i] / total); // 14~21
+            sensor.AddObservation((float)actionUsageCount[i] / total); 
 
         // 위치 기반 연출 가능 여부 (학습 씬에서는 항상 true)
         if (TrainingSignalSimulator.Instance != null)
@@ -120,28 +126,28 @@ public class HorrorDirector : Agent
         }
         else
         {
-            // 실제 씬: 실제 상태 체크
+            // 실제 씬: 실제 상태 체크, 위치기반 18-21
             sensor.AddObservation(ScareManager.Instance != null
-                && ScareManager.Instance.HasNearbyMannequin() ? 1f : 0f); // 22
+                && ScareManager.Instance.HasNearbyMannequin() ? 1f : 0f); 
             sensor.AddObservation(ScareManager.Instance != null
-                && ScareManager.Instance.HasNearbyLight() ? 1f : 0f);     // 23
+                && ScareManager.Instance.HasNearbyLight() ? 1f : 0f);     
             sensor.AddObservation(ScareManager.Instance != null
-                && ScareManager.Instance.HasUnlockedDoor() ? 1f : 0f);    // 24
+                && ScareManager.Instance.HasUnlockedDoor() ? 1f : 0f);   
             sensor.AddObservation(ScareManager.Instance != null
-                && ScareManager.Instance.CanTriggerGlitch() ? 1f : 0f);   // 25
+                && ScareManager.Instance.CanTriggerGlitch() ? 1f : 0f); 
         }
 
-        // 플레이어 성향 벡터(1부에서 수집, 없으면 중간값 0.5)
+        // 플레이어 성향 벡터(1부에서 수집, 8개)22-29
         if (PlayerProfiler.Instance != null)
         {
             float[] profile = PlayerProfiler.Instance.GetProfileVector();
             foreach (float v in profile)
-                sensor.AddObservation(v); // 26~29
+                sensor.AddObservation(v); // 22~29
         }
         else
         {
-            for (int i = 0; i < 4; i++)
-                sensor.AddObservation(0.5f); // 26~29
+            for (int i = 0; i < 8; i++)
+                sensor.AddObservation(0f); // 22~29
         }
     }
 

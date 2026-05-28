@@ -163,10 +163,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b66d847b82dc3f342b1403adc308f621, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mode: 1
   baseNoise: 0.01
   scareResponsePeak: 1
-  responseDecayRate: 2
+  stepDecayRate: 0.75
   baselineDecibel: 0
   baselineMouseDelta: 0
   isBaselineReady: 1
@@ -207,13 +206,12 @@ MonoBehaviour:
   MaxStep: 0
   micWeight: 0.7
   mouseWeight: 0.3
+  baseReward: 0.4
   fearRewardScale: 1.5
   repetitionPenalty: -0.5
   decayPenalty: -0.2
   diversityRewardScale: 0.4
   silenceRewardPerStep: 0.1
-  silenceRewardCap: 0.3
-  wastedActionPenalty: -0.05
   minSilenceStepsForReward: 3
   maxSilenceStepsBeforePenalty: 40
 --- !u!114 &530122748
@@ -229,7 +227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 25
+    VectorObservationSize: 29
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 0
@@ -321,7 +319,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a015ad72842270c4ea27cad80809c2d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isActing: 0
 --- !u!1 &706009421
 GameObject:
   m_ObjectHideFlags: 0

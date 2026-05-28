@@ -169,6 +169,7 @@ public class ScareManager : MonoBehaviour
 
         if (nearby.Count == 0) return;
         nearby[Random.Range(0, nearby.Count)].ActivateScare();
+        RecordResponse(1);
     }
 
     // Action 2: 조명 깜빡임
@@ -178,6 +179,7 @@ public class ScareManager : MonoBehaviour
         if (isActing) return;
         if (!HasNearbyLight()) return;
         StartCoroutine(LightFlickerRoutine());
+        RecordResponse(2);
     }
 
     // Action 3: 점프스케어 (UI 이미지)
@@ -188,6 +190,7 @@ public class ScareManager : MonoBehaviour
         if (jumpScareCanvas.worldCamera == null) AssignCameraToCanvas();
         if (jumpScareImage == null) return;
         StartCoroutine(JumpScareUIRoutine());
+        RecordResponse(3);
     }
 
     // Action 4: 소리 재생 (종류 랜덤)
@@ -201,6 +204,7 @@ public class ScareManager : MonoBehaviour
         if (clip == null) return;
 
         StartCoroutine(ScareSoundRoutine(clip));
+        RecordResponse(4);
     }
 
     // Action 5: 문 열림/닫힘
@@ -209,6 +213,7 @@ public class ScareManager : MonoBehaviour
         if (isActing) return;
         if (!HasUnlockedDoor()) return;
         StartCoroutine(DoorScareRoutine());
+        RecordResponse(5);
     }
 
     // Action 6: 그림 글리치
@@ -221,6 +226,7 @@ public class ScareManager : MonoBehaviour
             if (manager != null && manager.IsPlayerInRoom)
             {
                 manager.TriggerGlitch();
+                RecordResponse(6);
                 return; // 하나만 실행
             }
         }
@@ -313,4 +319,13 @@ public class ScareManager : MonoBehaviour
         return available[Random.Range(0, available.Count)];
     }
 
+    // 헬퍼 함수
+    private void RecordResponse(int action)
+    {
+        if (PlayerProfiler.Instance == null) return;
+        if (SignalCollector.Instance == null) return;
+        float mic = SignalCollector.Instance.GetNormalizedMic();
+        float mouse = SignalCollector.Instance.GetNormalizedMouse();
+        PlayerProfiler.Instance.RecordResponse(action, mic, mouse);
+    }
 }
