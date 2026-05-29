@@ -184,7 +184,8 @@ public class HorrorDirector : Agent
           + (normalizedMouse * mouseWeight)
           + (simultaneousBonus * 0.3f));
 
-        Debug.Log($"[HorrorDirector] action: {action}, mic: {normalizedMic:F3}, mouse: {normalizedMouse:F3}, fearSignal: {fearSignal:F3}");
+        string[] actionNames = { "침묵", "마네킹", "조명", "점프스케어", "소리", "문", "그림글리치" };
+        Debug.Log($"[HorrorDirector] action: {actionNames[action]}, mic: {normalizedMic:F3}, mouse: {normalizedMouse:F3}, fearSignal: {fearSignal:F3}");
 
         // ────────────────────────────────
         // 보상 레이어 1: 즉각 반응 보상, 다양성 보상
