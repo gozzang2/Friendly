@@ -151,11 +151,11 @@
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\First Person Player\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\dialogue\dialog.cs" />
     <Compile Include="Assets\KeypadSafe\Keypad_Scripts\KeypadInteractionFPV.cs" />
+    <Compile Include="Assets\Scripts\JumpScareCharacter.cs" />
     <Compile Include="Assets\Scripts\PersistentRoot.cs" />
     <Compile Include="Assets\Speech Bubble\Scripts\SpeechBubble.cs" />
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\Doors\opencloseStallDoor.cs" />
     <Compile Include="Assets\Speech Bubble\Scripts\SeamlessUI\RectTransformExtension.cs" />
-    <Compile Include="Assets\SojinAsset\Vintage Interactive Radio\Scripts\JumpScareManager.cs" />
     <Compile Include="Assets\KeypadSafe\Safe_script\SafeStoryInteractable.cs" />
     <Compile Include="Assets\KeypadSafe\Keypad_Scripts\Keypad.cs" />
     <Compile Include="Assets\Scripts\PlayerSpawner.cs" />

@@ -11,7 +11,6 @@ public class InteractiveRadio : MonoBehaviour
     public ToggleSwitch toggleSwitch;
     public List<RadioStation> radioStations;
     public AudioClip whiteNoise;
-    public JumpScareManager jumpScareManager;
 
     void Start()
     {
@@ -47,10 +46,6 @@ public class InteractiveRadio : MonoBehaviour
         if (target.isEventChannel && !target.isPermanentDisabled)
         {
             target.isPermanentDisabled = true; // 한 번만 실행되도록 바로 잠금
-            if (jumpScareManager != null)
-            {
-                jumpScareManager.TriggerMonsterEvent();
-            }
         }
 
         PlaySound(target.clip);

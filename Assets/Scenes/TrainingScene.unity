@@ -207,13 +207,13 @@ MonoBehaviour:
   micWeight: 0.7
   mouseWeight: 0.3
   baseReward: 0.4
-  fearRewardScale: 1.5
-  repetitionPenalty: -0.5
+  fearRewardScale: 2
+  repetitionPenalty: -0.7
   decayPenalty: -0.2
-  diversityRewardScale: 0.4
-  silenceRewardPerStep: 0.1
+  diversityRewardScale: 0.6
+  silenceRewardPerStep: 0.01
   minSilenceStepsForReward: 3
-  maxSilenceStepsBeforePenalty: 40
+  maxSilenceStepsBeforePenalty: 30
 --- !u!114 &530122748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,7 +228,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BrainParameters:
     VectorObservationSize: 29
-    NumStackedVectorObservations: 1
+    NumStackedVectorObservations: 10
     m_ActionSpec:
       m_NumContinuousActions: 0
       BranchSizes: 07000000
