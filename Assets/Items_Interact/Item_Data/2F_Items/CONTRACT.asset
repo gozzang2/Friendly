@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: CONTRACT
   displayName: Sponsorship Agreement (Copy)
-  description: "'Party A ({RICH_PATIENT_NAME}) will fully cover the cost of Party
-    B ({NPC_DAD_NAME})'s surgery scheduled for the following day. However, Party
-    A\u2019s surgery will be performed first.\u201D"
-  icon: {fileID: 0}
+  description: "'Party A (Daniel Jane Garret) will fully cover the cost of Party
+    B (Mark Stevens)'s surgery scheduled for the following day. However, Party A\u2019s
+    surgery will be performed first.\u201D"
+  icon: {fileID: 21300000, guid: ca6fdba8cdb80d54492ed50025d9bec9, type: 3}

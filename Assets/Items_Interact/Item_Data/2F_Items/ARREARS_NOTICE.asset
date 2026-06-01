@@ -16,4 +16,4 @@ MonoBehaviour:
   displayName: a delinquent/unpaid bill
   description: Nonpayment for hospitalization and surgery. Several memos requesting
     installment payments.
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 649bdaafb633ca042b9614bfe92750ef, type: 3}
