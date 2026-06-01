@@ -631,7 +631,6 @@
                     "id": "S07_N15",
                     "type": "action",
                     "do": [
-                        { "type": "rollbackSave" },
                         { "type": "setFlag", "flag": "alarm_started", "value": true },
                         { "type": "sound", "name": "alarm_siren" },
                         { "type": "vignette", "mode": "red", "strength": 0.8 },
@@ -681,36 +680,6 @@
                             "value": true
                         }
                     ]
-                }
-            ]
-        },
-        {
-            "id": "S08_CHASE_ROUTE",
-            "name": "Part 2 - Chase / Escape",
-
-            "retryScene": "S08_CHASE_ROUTE",
-            "retryNode": "S08_N0",
-
-            "nodes": [
-            ]
-        },
-
-        {
-            "id": "S08_FAIL",
-            "name": "Caught by NPC",
-            "nodes": [
-                {
-                "id": "S08_FAIL_N0",
-                "type": "narration",
-                "text": "A hand grabs your shoulder."
-                },
-                {
-                "id": "S08_FAIL_N1",
-                "type": "action",
-                "do": [
-                    { "type": "rollbackRestore" }
-                ],
-                "nextScene": "S08_CHASE_ROUTE"
                 }
             ]
         },

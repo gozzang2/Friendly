@@ -31,7 +31,8 @@ public class NPCStoryLoader : MonoBehaviour
     [SerializeField] private string chaseSceneName = "12_F1_Main";
     [SerializeField] private string chaseStartFlag = "npc_chase_started";
 
-
+    [SerializeField] private GameObject gameOverUI;
+    [SerializeField] private float gameOverDuration = 5f;
 
     [SerializeField] private float detectRadius = 18f;
     [SerializeField] private float walkSpeed = 2f;
@@ -71,6 +72,8 @@ public class NPCStoryLoader : MonoBehaviour
 
     private bool outdoorScenePhaseEnded = false; // outdoor 복귀 시 다시 안 나오게
     private bool initialized = false;       //line 138에서 쓰고 있음(Warning 무시)
+
+    private bool gameOverRunning = false;
 
     private void Awake()
     {
@@ -526,33 +529,70 @@ public class NPCStoryLoader : MonoBehaviour
 
     public void TriggerGameOver()
     {
+        if (gameOverRunning)
+            return;
+
+        gameOverRunning = true;
+
         Debug.Log("[NPCStoryLoader] TriggerGameOver called.");
 
-        //StartCoroutine(GameOverRoutine());
+        StartCoroutine(GameOverRoutine());
     }
 
     private IEnumerator GameOverRoutine()
     {
+        Debug.Log("[NPCStoryLoader] GameOver triggered.");
 
-        Debug.Log("[NPCStoryLoader] GameOver triggered by NPC.");
-
+        gameOverRunning = true;
 
         if (agent != null)
             agent.isStopped = true;
 
-        // 1. GameOver UI 표시
-        //GameOverUIController gameOverUI = FindFirstObjectByType<GameOverUIController>(FindObjectsInactive.Include);
-        //if (gameOverUI != null)
-          //  yield return gameOverUI.PlayGameOver();
+        // GameOver UI 표시
+        if (gameOverUI != null)
+            gameOverUI.SetActive(true);
 
-        // 2. 상태 롤백
-        //RollbackToS07N2();
+        yield return new WaitForSeconds(gameOverDuration);
 
-        // 3. 12_F1_Main의 1F_CCTV 스폰으로 이동
+        if (story != null)
+        {
+            story.data.state.flags["npc_chase_started"] = false;
+            story.data.state.flags["chase_started"] = false;
+            story.data.state.flags["alarm_started"] = false;
+        }
+
+        // UI 숨김
+        if (gameOverUI != null)
+            gameOverUI.SetActive(false);
+
         SceneLoader.nextSpawnID = "1F_CCTV";
-        SceneManager.LoadScene(chaseSceneName);
 
-        yield break;
+        SceneManager.sceneLoaded += OnGameOverReloaded;
+
+        SceneManager.LoadScene(chaseSceneName);
+    }
+
+    private void OnGameOverReloaded(
+    Scene scene,
+    LoadSceneMode mode)
+    {
+        SceneManager.sceneLoaded -= OnGameOverReloaded;
+
+        if (gameOverUI != null)
+            gameOverUI.SetActive(false);
+
+        if (story == null)
+            story = FindFirstObjectByType<dialog>();
+
+        if (story != null)
+        {
+            story.StartScene(
+                "S07_CCTV_ROOM",
+                "S07_N8"
+            );
+        }
+
+        gameOverRunning = false;
     }
     /*
     private void RollbackToS07N2()
