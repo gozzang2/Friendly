@@ -39,7 +39,9 @@
             "ending_ready": false,
             "npc_move_outdoor": false,
             "npc_move_ossuary": false,
-            "npc_chase_started": false
+            "npc_chase_started": false,
+            "npc_chase_2f_started": false,
+            "2f_opendoor" : false
         },
         "vars":{
             "suspicion" : 0,
@@ -709,14 +711,17 @@
                 {
                     "id": "S09_N3",
                     "type": "pickup",
-                    "itemId": "CONTRACT",
-                    "worldObjectId": "contract_01"
+                    "itemId": "HIPPOCRATIC",
+                    "worldObjectId": "hippocratic_01"
                 },
                 {
                     "id": "S09_N4",
                     "type": "pickup",
-                    "itemId": "HIPPOCRATIC",
-                    "worldObjectId": "hippocratic_01"
+                    "itemId": "CONTRACT",
+                    "worldObjectId": "contract_01",
+                    "effects": [
+                        { "type": "setFlag", "flag": "npc_chase_2f_started", "value": true }
+                    ]
                 },
                 {
                     "id": "S09_N5",

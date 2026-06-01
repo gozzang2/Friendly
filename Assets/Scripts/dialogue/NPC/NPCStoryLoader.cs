@@ -30,20 +30,23 @@ public class NPCStoryLoader : MonoBehaviour
     [Header("12_F1_Main Chase Settings")]
     [SerializeField] private string chaseSceneName = "12_F1_Main";
     [SerializeField] private string chaseStartFlag = "npc_chase_started";
-
     [SerializeField] private GameObject gameOverUI;
     [SerializeField] private float gameOverDuration = 5f;
-
     [SerializeField] private float detectRadius = 18f;
     [SerializeField] private float walkSpeed = 2f;
     [SerializeField] private float runSpeed = 5f;
-
     [SerializeField] private string flashlightItemId = "Flashlight";
-
     [SerializeField] private AudioClip npcDoorSound;
     [SerializeField] private AudioSource npcAudioSource;
-
     [SerializeField] private string doorNearLocation6Name = "DoorStair1";
+
+    [Header("2F Chase Settings")]
+    [SerializeField] private string chase2FSceneName = "2F_Hall";
+    [SerializeField] private string location8Name = "NPC_Location8";
+    [SerializeField] private string playerLocation8Name = "PC_Location8";
+    [SerializeField] private string chase2FStartFlag = "npc_chase_2f_started";
+
+    private bool is2FChaseMode = false;
 
     private enum ChaseState
     {
@@ -145,7 +148,10 @@ public class NPCStoryLoader : MonoBehaviour
             }
         }
 
-        if (currentScene == chaseSceneName)
+        if (
+            currentScene == chaseSceneName ||
+            currentScene == chase2FSceneName
+        )
         {
             UpdateChaseLogic();
         }
@@ -233,6 +239,28 @@ public class NPCStoryLoader : MonoBehaviour
             {
                 Debug.LogWarning("[NPCStoryLoader] NPC_Location5 not found.");
                 HideNpcImmediate();
+            }
+        }
+        else if (
+            scene.name == chase2FSceneName &&
+            story != null &&
+            story.IsFlagTrue(chase2FStartFlag)
+        )
+        {
+            Transform loc8 = FindMarker(location8Name);
+
+            if (loc8 != null)
+            {
+                CreateNpcIfNeeded();
+
+                ShowNpc();
+                PlaceNpcAt(loc8);
+
+                chaseModeStarted = true;
+                reachedLocation6 = true;
+                is2FChaseMode = true;
+
+                BindPlayer();
             }
         }
         else
@@ -379,6 +407,20 @@ public class NPCStoryLoader : MonoBehaviour
     // 12_F1_Main에서 플레이어 추격 로직 업데이트
     private void UpdateChaseLogic()
     {
+        if (is2FChaseMode)
+        {
+            if (playerTransform == null)
+                BindPlayer();
+
+            if (playerTransform == null)
+                return;
+
+            UpdateNpcSpeed();
+            ChasePlayer();
+
+            return;
+        }
+
         if (story == null || npcInstance == null || agent == null)
             return;
 
@@ -565,11 +607,28 @@ public class NPCStoryLoader : MonoBehaviour
         if (gameOverUI != null)
             gameOverUI.SetActive(false);
 
-        SceneLoader.nextSpawnID = "1F_CCTV";
+        if (this.story == null)
+            this.story = FindFirstObjectByType<dialog>();
+
+        //2층 분기
+        bool is2FChase =
+            this.story != null &&
+            this.story.IsFlagTrue("npc_chase_2f_started");
+
+        if (is2FChase)
+        {
+            SceneLoader.nextSpawnID = "PC_Location8";
+        }
+        else
+        {
+            SceneLoader.nextSpawnID = "1F_CCTV";
+        }
 
         SceneManager.sceneLoaded += OnGameOverReloaded;
 
-        SceneManager.LoadScene(chaseSceneName);
+        SceneManager.LoadScene(
+            SceneManager.GetActiveScene().name
+        );
     }
 
     private void OnGameOverReloaded(
@@ -655,5 +714,39 @@ public class NPCStoryLoader : MonoBehaviour
         {
             chaseState = ChaseState.MovingToLocation6;
         }
+    }
+
+    public void Start2FChase()
+    {
+        if (story == null)
+            story = FindFirstObjectByType<dialog>();
+
+        if (story != null)
+        {
+            story.data.state.flags[chase2FStartFlag] = true;
+        }
+
+        CreateNpcIfNeeded();
+
+        Transform loc8 = FindMarker(location8Name);
+
+        if (loc8 == null)
+        {
+            Debug.LogError(
+                "[NPCStoryLoader] NPC_Location8 not found"
+            );
+            return;
+        }
+
+        ShowNpc();
+        PlaceNpcAt(loc8);
+
+        is2FChaseMode = true;
+        chaseModeStarted = true;
+        reachedLocation6 = true;
+
+        BindPlayer();
+
+        Debug.Log("[NPCStoryLoader] 2F Chase Started");
     }
 }

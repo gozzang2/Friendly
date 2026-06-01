@@ -86,4 +86,6 @@ public class ItemPickup : MonoBehaviour, IInteractable
         if (pickupSound != null)
             AudioSource.PlayClipAtPoint(pickupSound, transform.position, pickupSoundVolume);
     }
+
+
 }

@@ -15,4 +15,4 @@ MonoBehaviour:
   itemId: HIPPOCRATIC
   displayName: Hippocratic Oath Framed Plaque
   description: A worn frame. 'The patient's life comes first...'
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: ca6fdba8cdb80d54492ed50025d9bec9, type: 3}

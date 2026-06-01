@@ -73,6 +73,8 @@ public class DoorInteractable : MonoBehaviour, IInteractable
 
     public void Interact()
     {
+        Debug.Log("Door interacted");
+
         if (isMoving) return;
 
         // 혹시 시작 타이밍에 못 잡았으면 여기서 한 번 더 보정
@@ -95,6 +97,7 @@ public class DoorInteractable : MonoBehaviour, IInteractable
     private bool IsLocked()
     {
         if (!startsLocked) return false;
+
         return !unlockingItem.IsUnlocked(requiredUnlockId);
     }
 

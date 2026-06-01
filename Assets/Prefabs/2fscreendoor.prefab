@@ -249,9 +249,7 @@ Transform:
   m_Children:
   - {fileID: 8191369926756661504}
   - {fileID: 5351337366448053848}
-  - {fileID: 7975372292904287883}
   - {fileID: 8000053707834495835}
-  - {fileID: 1037277202377958338}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &4100211912596150652
@@ -282,14 +280,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4100211912596150652}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.04, y: -0.895, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1042266934427663906}
   - {fileID: 533830406853951284}
-  m_Father: {fileID: 4173656456897711444}
+  m_Father: {fileID: 5351337366448053848}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &7969504822746713214
 BoxCollider:
@@ -901,7 +899,8 @@ Transform:
   m_LocalPosition: {x: -1.04, y: 0.895, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 7975372292904287883}
   m_Father: {fileID: 4173656456897711444}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9012164240419577501
@@ -932,7 +931,8 @@ Transform:
   m_LocalPosition: {x: 0.951, y: 0.895, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1037277202377958338}
   m_Father: {fileID: 4173656456897711444}
   m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
 --- !u!1 &9185440708080914412
@@ -963,14 +963,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9185440708080914412}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: -0.7071068}
+  m_LocalPosition: {x: 0, y: -0.895, z: 0.9510001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5283149551572576739}
   - {fileID: 4960693023545056954}
-  m_Father: {fileID: 4173656456897711444}
+  m_Father: {fileID: 8000053707834495835}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &2016380889319296768
 BoxCollider:
