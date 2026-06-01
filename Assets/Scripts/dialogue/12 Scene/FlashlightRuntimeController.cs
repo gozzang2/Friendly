@@ -82,6 +82,9 @@ public class FlashlightRuntimeController : MonoBehaviour
 
     public void AcquireFlashlight()
     {
+        if (_hasFlashlight)   return;
+        if(_isOn) _isOn = false;   
+
         _hasFlashlight = true;
         _isOn = true;
 

@@ -198,15 +198,29 @@ public class DebugConsole : MonoBehaviour
                 ShowLogs();
                 break;
 
-            case "/closethis":
+            case "/close":
                 CloseConsole();
                 break;
+
+            case "/goscenecctvadmin":
+                {
+                    CloseConsole();
+
+                    SceneLoader.nextSpawnID = "CCTV_Ent";
+
+                    dialogSystem.GotoScene(
+                        "S07_CCTV_ROOM"
+                    );
+
+                    break;
+                }
 
             default:
                 Debug.LogWarning($"[CMD] Unknown command: {cmd}");
                 break;
         }
     }
+
 
     private void PrepareDebugSpawnOverrideForNextScene()
     {

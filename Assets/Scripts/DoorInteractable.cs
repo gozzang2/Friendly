@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.AI;
 
 public class DoorInteractable : MonoBehaviour, IInteractable
 {
@@ -27,6 +28,8 @@ public class DoorInteractable : MonoBehaviour, IInteractable
     private bool isOpen = false;
     private bool isMoving = false;
 
+    private NavMeshObstacle navObstacle;
+
     private void Awake()
     {
         if (hingePivot == null)
@@ -35,6 +38,7 @@ public class DoorInteractable : MonoBehaviour, IInteractable
         if (audioSource == null)
             audioSource = GetComponent<AudioSource>();
 
+        navObstacle = hingePivot.GetComponent<NavMeshObstacle>();
         closedRotation = hingePivot.localRotation;
     }
 
@@ -136,6 +140,12 @@ public class DoorInteractable : MonoBehaviour, IInteractable
     {
         isMoving = true;
 
+        // 문 열기 시작 시 장애물 제거
+        if (openState && navObstacle != null)
+        {
+            navObstacle.enabled = false;
+        }
+
         Quaternion startRotation = hingePivot.localRotation;
         float elapsed = 0f;
 
@@ -148,6 +158,13 @@ public class DoorInteractable : MonoBehaviour, IInteractable
         }
 
         hingePivot.localRotation = targetRotation;
+
+        // 문 닫힌 후 장애물 복구
+        if (!openState && navObstacle != null)
+        {
+            navObstacle.enabled = true;
+        }
+
         isOpen = openState;
         isMoving = false;
     }

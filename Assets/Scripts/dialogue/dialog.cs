@@ -85,7 +85,6 @@ public class dialog : MonoBehaviour
     //Current Progress Save/Load API (for rollback, etc.)
     public string CurrentSceneId => _currentScene?.id;
     public string CurrentNodeId => _nextNodeId;
-    private NodeDef _currentExecutingNode;
 
     private void Awake()
     {
@@ -278,7 +277,6 @@ public class dialog : MonoBehaviour
 
             _nextNodeId = null;
 
-            _currentExecutingNode = node;
             yield return RunNode(node);
 
             // 현재 scene의 resume 지점 저장
@@ -336,7 +334,7 @@ public class dialog : MonoBehaviour
         }
     }
 
-    private void GotoScene(string sceneId, string startNodeId = null)
+    public void GotoScene(string sceneId, string startNodeId = null)
     {
         if (_unitySceneNameByStorySceneId.TryGetValue(sceneId, out var unitySceneName) &&
             !string.IsNullOrWhiteSpace(unitySceneName))
@@ -609,7 +607,8 @@ public class dialog : MonoBehaviour
             yield return null;
     }
 
-    public void PickupItemById_FromWorld(string itemId, string worldObjectId = null, bool showInspectLine = false)
+    public void PickupItemById_FromWorld(string itemId,
+    bool showInspectLine)
     {
         if (itemId == null || string.IsNullOrEmpty(itemId))
         {
@@ -618,17 +617,17 @@ public class dialog : MonoBehaviour
         }
 
         StartCoroutine(
-            HandleWorldPickupRoutine(itemId, worldObjectId, showInspectLine)
+            HandleWorldPickupRoutine(itemId, showInspectLine)
         );
     }
 
-    private IEnumerator HandleWorldPickupRoutine(string itemId, string worldObjectId, bool showInspectLine)
+    private IEnumerator HandleWorldPickupRoutine(string itemId, bool showInspectLine)
     {
         // 이미 획득했으면 중복 방지
         if (HasItemInStoryState(itemId))
             yield break;
 
-        yield return PickupItemRoutine(itemId, worldObjectId, showInspectLine);
+        yield return PickupItemRoutine(itemId, showInspectLine);
 
         if (_pickupWaiting && _pendingPickupItemIds.Contains(itemId))
         {
@@ -642,7 +641,7 @@ public class dialog : MonoBehaviour
         }
     }
 
-    private IEnumerator PickupItemRoutine(string itemId, string worldObjectId, bool showInspectLine)
+    private IEnumerator PickupItemRoutine(string itemId, bool showInspectLine)
     {
         if (data == null || data.items == null)
         {
@@ -656,13 +655,6 @@ public class dialog : MonoBehaviour
             yield break;
         }
 
-        if (!string.IsNullOrEmpty(worldObjectId))
-        {
-            WorldStateManager.Instance.SetWorldObjectState(
-                worldObjectId,
-                false
-            );
-        }
 
         // inventory add
         if (data.state.inventory == null) data.state.inventory = new List<string>();
@@ -870,22 +862,7 @@ public class dialog : MonoBehaviour
                         else Debug.Log($"[OBJECTIVE] {Template(cmd.text)}");
                         break;
                     }
-                case "rollbackSave":
-                    {
-                        RollbackManager.Instance.SaveChaseSnapshot(
-                            _currentScene.id,
-                            _currentExecutingNode != null
-                                ? _currentExecutingNode.id
-                                : null
-                        );
-                        break;
-                    }
 
-                case "rollbackRestore":
-                    {
-                        RollbackManager.Instance.RestoreChaseSnapshot();
-                        break;
-                    }
                 default:
                     Debug.LogWarning($"Unknown command type: {cmd.type}");
                     break;
