@@ -341,6 +341,10 @@ public class dialog : MonoBehaviour
         {
             Debug.Log($"[dialog] Story scene '{sceneId}' -> Load Unity scene '{unitySceneName}'");
 
+            // CCTV 씬으로 전환할 때 PlayerProfiler 저장
+            if (sceneId == "S07_CCTV_ROOM" && PlayerProfiler.Instance != null)
+                PlayerProfiler.Instance.SaveProfile();
+
             _waitingStorySceneId = sceneId;
             _waitingStoryStartNodeId = startNodeId;
 

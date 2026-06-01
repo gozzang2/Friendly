@@ -85,4 +85,10 @@ public class PlayerProfiler : MonoBehaviour
             profileVector[i] = PlayerPrefs.GetFloat($"PlayerProfile_{i}", 0f);
         Debug.Log("[PlayerProfiler] 성향 벡터 로드 완료");
     }
+
+    public void SetProfileVector(float[] vector)
+    {
+        for (int i = 0; i < Mathf.Min(vector.Length, profileVector.Length); i++)
+            profileVector[i] = vector[i];
+    }
 }

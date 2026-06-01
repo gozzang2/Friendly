@@ -68,6 +68,10 @@ public class HorrorDirector : Agent
         consecutiveSilence = 0;
         actionHistory.Clear();
         actionUsageCount = new int[ACTION_COUNT];
+
+        // 2부 학습: 매 에피소드마다 다른 성향의 플레이어 시뮬레이션
+        if (TrainingSignalSimulator.Instance != null)
+            TrainingSignalSimulator.Instance.RandomizeProfile();
     }
 
     // ────────────────────────────────────────────
