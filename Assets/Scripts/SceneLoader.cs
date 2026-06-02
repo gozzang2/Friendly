@@ -55,9 +55,6 @@ public class SceneLoader : MonoBehaviour
 
     private void DoSceneLoad()
     {
-        // 2층 씬으로 전환할 때만 성향 저장
-        if (sceneName == "2F_Hall" && PlayerProfiler.Instance != null)
-            PlayerProfiler.Instance.SaveProfile();
 
         nextSpawnID = targetSpawnID;
         SceneManager.LoadScene(sceneName);

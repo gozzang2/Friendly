@@ -56,7 +56,37 @@ public class TrainingSignalSimulator : MonoBehaviour
             actualIntensity = intensity * (1f - fatigue[actionIndex]);
             fatigue[actionIndex] = Mathf.Clamp01(fatigue[actionIndex] + 0.3f);
         }
-        _responseMagnitude = scareResponsePeak * actualIntensity;
+
+        //성향 벡터 반영
+        float personalMultiplier = 1.0f;
+        if (actionIndex >= 1 && PlayerProfiler.Instance != null)
+        {
+            float[] profile = PlayerProfiler.Instance.GetProfileVector();
+            // profile[2]~[7] = action1~6 평균 FearSignal
+            // 성향 높으면 잘 무서워함 → FearSignal 높게
+            float sensitivity = profile[actionIndex + 1]; // action1→[2], action2→[3]...
+            personalMultiplier = 0.3f + sensitivity * 1.4f;
+            // sensitivity=0 → 0.3 (거의 반응 안 함)
+            // sensitivity=1 → 1.7 (매우 잘 반응)
+        }
+        _responseMagnitude = scareResponsePeak * actualIntensity * personalMultiplier;
+    }
+
+    // 에피소드마다 랜덤 성향 주입
+    public void RandomizeProfile()
+    {
+        if (PlayerProfiler.Instance == null) return;
+        float[] randomProfile = new float[8];
+        randomProfile[0] = Random.Range(0.1f, 0.9f); // 평균 마이크
+        randomProfile[1] = Random.Range(0.1f, 0.9f); // 평균 마우스
+        for (int i = 2; i < 8; i++)
+            randomProfile[i] = Random.Range(0f, 0.8f); // action별 fearSignal
+        PlayerProfiler.Instance.SetProfileVector(randomProfile);
+        Debug.Log($"[Simulator] 랜덤 성향 주입: " +
+            $"mic={randomProfile[0]:F2} mouse={randomProfile[1]:F2} " +
+            $"actions=[{randomProfile[2]:F2},{randomProfile[3]:F2}," +
+            $"{randomProfile[4]:F2},{randomProfile[5]:F2}," +
+            $"{randomProfile[6]:F2},{randomProfile[7]:F2}]");
     }
 
     public void ApplyScenario(float micSens, float mouseSens, string scenarioName)

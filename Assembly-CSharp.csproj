@@ -71,6 +71,7 @@
     <Compile Include="Assets\Scripts\dialogue\LoadingUIController.cs" />
     <Compile Include="Assets\Scripts\BGMLooper.cs" />
     <Compile Include="Assets\Scripts\DoorInteractable.cs" />
+    <Compile Include="Assets\Scripts\dialogue\Door unlocking item\ContractPickup.cs" />
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\First Person Player\SceneSwitchGen.cs" />
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\Windows\opencloseWindow.cs" />
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\First Person Player\MouseLook.cs" />
@@ -102,10 +103,10 @@
     <Compile Include="Assets\SojinAsset\Office building\scripts\evelator_controll.cs" />
     <Compile Include="Assets\Speech Bubble\Scripts\SpeechBubble_TMP.cs" />
     <Compile Include="Assets\Scripts\ItemRegistry.cs" />
-    <Compile Include="Assets\Scripts\dialogue\RollbackManager.cs" />
     <Compile Include="Assets\Scripts\ItemPickup.cs" />
     <Compile Include="Assets\Models\MonsterModel\MannequinTrigger.cs" />
     <Compile Include="Assets\Scripts\ScareManager.cs" />
+    <Compile Include="Assets\Scripts\dialogue\NPC\ChaseManager.cs" />
     <Compile Include="Assets\SojinAsset\Vintage Interactive Radio\Scripts\RadioZoomController.cs" />
     <Compile Include="Assets\Scripts\dialogue\Annex2FSceneStoryStarter.cs" />
     <Compile Include="Assets\Scripts\dialogue\UIController.cs" />
@@ -120,12 +121,10 @@
     <Compile Include="Assets\Scripts\DocumentViewrUI.cs" />
     <Compile Include="Assets\Scripts\dialogue\OutdoorSceneStarter.cs" />
     <Compile Include="Assets\SojinAsset\Office building\scripts\Door.cs" />
-    <Compile Include="Assets\Scripts\dialogue\SaveData.cs" />
     <Compile Include="Assets\Scripts\SurgeryRoomTrigger.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\Slide\BRGlassDoor.cs" />
     <Compile Include="Assets\Scripts\PauseManager.cs" />
     <Compile Include="Assets\SojinAsset\Office building\scripts\Fix_elevator_fall.cs" />
-    <Compile Include="Assets\Scripts\dialogue\WorldObjectState.cs" />
     <Compile Include="Assets\Scripts\IInteractable.cs" />
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\Drawer\Z Axis\Drawer_Pull_Z.cs" />
     <Compile Include="Assets\Scripts\dialogue\OssuarySceneStoryStarter.cs" />
@@ -165,8 +164,6 @@
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\TableFlip\TableFlipL.cs" />
     <Compile Include="Assets\KeypadSafe\Keypad_Scripts\KeypadModalController.cs" />
     <Compile Include="Assets\Scripts\CarDoorIntro.cs" />
-    <Compile Include="Assets\Scripts\dialogue\WorldStateManager.cs" />
-    <Compile Include="Assets\Scripts\dialogue\ChaseRollbackSnapshot.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\Closet\ClosetopencloseDoor.cs" />
     <Compile Include="Assets\Scripts\TrainingSignalSimulator.cs" />
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\Windows\opencloseWindow1.cs" />
