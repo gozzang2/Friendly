@@ -77,4 +77,16 @@
 2. AI 공포 연출 구조로 공포 게임의 새로운 패러다임 제시
 3. 다회차 플레이 시 매번 달라지는 이벤트 타이밍과 조합으로 재플레이 가치 상승
 
----
+<br/>
+## 🎮 How to Build & Play
+
+### Play
+웹 플레이 링크: [itch.io 링크]
+
+### Build from Source
+1. Unity 6에서 프로젝트 열기
+2. File → Build Profiles 
+3. Platform: Windows 선택
+4. Scene List에서 BootstrapScene, TitleScene, OutdoorScene, OssuaryIndoorScene, 10_F1_Main, 11_F1_CCTVInterior, 2F_Hall, 12_F1_Main 씬 추가
+5. Build 클릭
+6. 빌드본이 있는 폴더의 Friendly_0206.exe 실행 후 게임 플레이  
