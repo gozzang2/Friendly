@@ -78,12 +78,13 @@
 3. 다회차 플레이 시 매번 달라지는 이벤트 타이밍과 조합으로 재플레이 가치 상승
 
 <br/>
+
 ## 🎮 How to Build & Play
 
-### Play
+### - Play
 웹 플레이 링크: [itch.io 링크]
 
-### Build from Source
+### - Build from Source
 1. Unity 6에서 프로젝트 열기
 2. File → Build Profiles 
 3. Platform: Windows 선택
